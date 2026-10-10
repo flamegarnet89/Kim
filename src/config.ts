@@ -15,9 +15,9 @@ export const TEXTURE_GALLERY = ASSET_BASE + "/img/textures/galaxy.webp";
 export const TEXTURE_ILLUSION = ASSET_BASE + "/img/textures/illusion.webp";
 
 /** Site metadata */
-export const SITE_TITLE = "Samuel Hinton";
+export const SITE_TITLE = "Kim";
 export const SITE_DESCRIPTION =
-  "Author, astrophysicist, and pizza lover. Book reviews, blogs, and more.";
+  "Reader, gamer, healthy-ish baker with a sweet tooth. Book reviews, game reviews, read-alongs, rambling thoughts about anything and everything and more.";
 
 export default {
   SITE_DOMAIN,
