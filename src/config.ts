@@ -1,0 +1,31 @@
+/**
+ * Centralized site configuration.
+ * Single source of truth for domain, URLs, and site metadata.
+ * Update here once when changing domain names.
+ */
+
+/** Primary domain and base URL */
+export const SITE_DOMAIN = "https://flamegarnet89.github.io/Kim";
+export const SITE_URL = SITE_DOMAIN + "/";
+export const SITE_BASE = "/Kim/";
+
+/** Asset paths (for files served from astro-public/) */
+export const ASSET_BASE = SITE_DOMAIN + SITE_BASE + "static";
+export const TEXTURE_GALLERY = ASSET_BASE + "/img/textures/galaxy.webp";
+export const TEXTURE_ILLUSION = ASSET_BASE + "/img/textures/illusion.webp";
+
+/** Site metadata */
+export const SITE_TITLE = "Samuel Hinton";
+export const SITE_DESCRIPTION =
+  "Author, astrophysicist, and pizza lover. Book reviews, blogs, and more.";
+
+export default {
+  SITE_DOMAIN,
+  SITE_URL,
+  SITE_BASE,
+  ASSET_BASE,
+  TEXTURE_GALLERY,
+  TEXTURE_ILLUSION,
+  SITE_TITLE,
+  SITE_DESCRIPTION,
+};
