@@ -237,6 +237,7 @@ body {
     }
     &.active-undefined {
       @apply bg-green-700 text-green-400;
+      opacity: 1;
     }
   }
 
