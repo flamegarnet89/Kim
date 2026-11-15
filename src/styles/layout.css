@@ -457,7 +457,8 @@ body {
 
 .review-summary {
   .blog-post & a.btn-xs {
-    @apply text-xs py-[0.2rem] px-2;
+    /* @apply text-xs py-[0.2rem] px-2; */
+    @apply text-sm py-1 px-2.5
   }
   p {
     @apply mt-0 mb-4;
