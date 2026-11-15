@@ -459,11 +459,7 @@
 .review-card-tags .review-tag-link:focus-visible {
   @apply outline-2 outline-offset-2 outline-current;
 }
-
-.review-summary a.btn-xs {
-  @apply text-xs py-[0.2rem] px-2;
-}
-  
+ 
 /* Turn white images to dark mode */
 .img-invert {
   filter: invert(1) hue-rotate(180deg) brightness(1.2) saturate(1.3);
