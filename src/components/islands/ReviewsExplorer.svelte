@@ -847,7 +847,7 @@
   }
   
   function sourceChipState(tag: SourceTag): ChipState {
-    if (Object.keys(sourceActivations).length === 0) return 'active-nan';
+    if (Object.keys(sourceActivations).length === 0) return 'active-undefined';
     if (sourceActivations[tag] === true) return 'active-true';
     if (sourceActivations[tag] === false) return 'active-false';
     return 'active-undefined';
