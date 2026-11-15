@@ -459,6 +459,10 @@
 .review-card-tags .review-tag-link:focus-visible {
   @apply outline-2 outline-offset-2 outline-current;
 }
+
+.review-summary a.review-link-small {
+  @apply text-xs py-[0.2rem] px-2;
+}
   
 /* Turn white images to dark mode */
 .img-invert {
@@ -533,8 +537,7 @@
       padding: 4px;
   }
 }
-
-
+  
 .review-π {
   .bg2 {
     background: var(--grad-m);
