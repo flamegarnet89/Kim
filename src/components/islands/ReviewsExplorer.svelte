@@ -313,9 +313,7 @@
 			formatActivations: Object.fromEntries(
         allAvailableFormatTags.map((tag) => [tag, true])
       ) as Record<FormatTag, boolean>,  
-      sourceActivations: Object.fromEntries(
-        SOURCE_TAGS.map((tag) => [tag, true])
-      ) as Record<SourceTag, boolean>,
+      sourceActivations: {} as Record<SourceTag, boolean>,
       bookFilter: 'series' as BookFilter,
 			minWordCount: '',
       maxWordCount: '',
@@ -609,11 +607,8 @@
     formatActivations = Object.fromEntries(
       availableFormatTags.map((tag) => [tag, true])
     ) as Record<FormatTag, boolean>;
-    sourceActivations = Object.fromEntries(
-      allAvailableSourceTags.map((tag) => [tag, true])
-    ) as Record<SourceTag, boolean>;
+    sourceActivations = {};
     bookFilter = SERIES_TAG;
-
 		await tick();
     minWordCountInput.value = '';
     maxWordCountInput.value = '';
@@ -1127,6 +1122,18 @@
 
 <div id="tags" class="tag-list max-w-7xl mx-auto mb-5">  
   <div class="source-filter-group" role="group" aria-label="Filter by source">
+		<button
+      type="button"
+      class={`filter-chip source-chip ${
+        Object.keys(sourceActivations).length === 0
+          ? 'active-true'
+          : 'active-undefined'
+      }`}
+      aria-pressed={Object.keys(sourceActivations).length === 0}
+      onclick={() => (sourceActivations = {})}
+    >
+      <span>All</span>
+    </button>
     {#each availableSourceTags as tag}
       <button
         type="button"
