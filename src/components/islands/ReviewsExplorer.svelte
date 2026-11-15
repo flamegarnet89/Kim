@@ -310,9 +310,7 @@
       readingList: new SvelteSet<string>(),
       showReadingList: false,
       completionFilter: 'all' as CompletionFilter,
-			formatActivations: Object.fromEntries(
-        allAvailableFormatTags.map((tag) => [tag, true])
-      ) as Record<FormatTag, boolean>,  
+			formatActivations: {} as Record<FormatTag, boolean>,
       sourceActivations: {} as Record<SourceTag, boolean>,
       bookFilter: 'series' as BookFilter,
 			minWordCount: '',
@@ -604,9 +602,7 @@
     byRank = true;
     showReadingList = false;
     completionFilter = 'all';
-    formatActivations = Object.fromEntries(
-      availableFormatTags.map((tag) => [tag, true])
-    ) as Record<FormatTag, boolean>;
+    formatActivations = {};
     sourceActivations = {};
     bookFilter = SERIES_TAG;
 		await tick();
@@ -854,7 +850,7 @@
   }
 
   function formatChipState(tag: FormatTag): ChipState {
-    if (Object.keys(formatActivations).length === 0) return 'active-nan';
+    if (Object.keys(formatActivations).length === 0) return 'active-undefined';
     if (formatActivations[tag] === true) return 'active-true';
     if (formatActivations[tag] === false) return 'active-false';
     return 'active-undefined';
@@ -1146,6 +1142,18 @@
   </div>
 
   <div class="format-filter-group" role="group" aria-label="Filter by format">
+		<button
+      type="button"
+      class={`filter-chip format-chip ${
+        Object.keys(formatActivations).length === 0
+          ? 'active-true'
+          : 'active-undefined'
+      }`}
+      aria-pressed={Object.keys(formatActivations).length === 0}
+      onclick={() => (formatActivations = {})}
+    >
+      <span>All</span>
+    </button>
     {#each availableFormatTags as tag}
       <button
         type="button"
