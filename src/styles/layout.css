@@ -249,20 +249,20 @@ body {
     @apply text-green-50 bg-green-500;
   }
 
-  @media (hover: none) {
-  .tag-list .source-chip.active-true:hover,
-  .tag-list .format-chip.active-true:hover {
-    @apply text-green-50 bg-green-500;
-  }
-  .tag-list .source-chip.active-false:hover,
-  .tag-list .format-chip.active-false:hover {
-    @apply text-cream-50 bg-accent-500;
-  }
-  .tag-list .source-chip.active-undefined:hover,
-  .tag-list .format-chip.active-undefined:hover {
-    @apply text-green-400 bg-green-700;
-  }
-}
+ @media (hover: none) {
+    .source-chip.active-true:hover,
+    .format-chip.active-true:hover {
+       @apply text-green-50 bg-green-500;
+     }
+    .source-chip.active-false:hover,
+    .format-chip.active-false:hover {
+       @apply text-cream-50 bg-accent-500;
+     }
+    .source-chip.active-undefined:hover,
+    .format-chip.active-undefined:hover {
+       @apply text-green-400 bg-green-700;
+     }
+   }
 
   .source-filter-group,
   .format-filter-group {
