@@ -451,7 +451,7 @@
   @apply text-sm;
 }
 .review-card-tags .review-tag-link {
-  @apply block py-2 px-3 text-base text-inherit no-underline;
+  @apply block py-2 px-3 text-lg text-inherit no-underline;
   @variant sm {
     @apply py-1 px-2.5 text-sm;
   }
