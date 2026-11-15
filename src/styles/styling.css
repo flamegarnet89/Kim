@@ -464,7 +464,7 @@
 }
 
 .blog-post .review-summary a.btn-xs {
-  @apply text-base py-2 px-3;
+  @apply text-lg py-1.5 px-2.5;
   @variant sm {
     @apply text-xs py-1 px-3;
   }
