@@ -244,6 +244,11 @@ body {
     }
   }
 
+  .source-filter-group > .source-chip:first-child.active-true:hover,
+  .format-filter-group > .format-chip:first-child.active-true:hover {
+    @apply text-green-50 bg-green-500;
+  }
+
   .source-filter-group,
   .format-filter-group {
     @apply inline-flex items-center m-2 overflow-hidden rounded-md;
