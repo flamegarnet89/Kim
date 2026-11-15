@@ -460,7 +460,7 @@
   @apply outline-2 outline-offset-2 outline-current;
 }
 
-.review-summary a.review-link-small {
+.review-summary a.btn-xs {
   @apply text-xs py-[0.2rem] px-2;
 }
   
