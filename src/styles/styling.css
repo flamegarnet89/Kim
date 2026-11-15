@@ -463,18 +463,12 @@
   @apply outline-2 outline-offset-2 outline-current;
 }
 
-.blog-post .review-summary a.btn-xs {
+/* .blog-post .review-summary a.btn-xs {
   @apply text-lg py-1.5 px-2.5;
   @variant sm {
     @apply text-xs py-1 px-3;
   }
-}
-.blog-post .review-summary a.btn-xs svg {
-  @apply w-4 h-4;
-  @variant sm {
-    @apply w-3 h-3;
-  }
-}
+} */
   
 /* Turn white images to dark mode */
 .img-invert {
