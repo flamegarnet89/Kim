@@ -162,7 +162,9 @@ const reviewMarkdown =
               <div class="rating">
                 <p class={`larger rating-${r}`}>{ratingText}</p>
               </div>
-              <p class="text-lg text-green-400">{entry.data.description}</p>
+              <p class="text-lg text-green-400 flex-1 flex items-center">
+                {entry.data.description}
+              </p>
               <div class="md:mt-auto flex flex-col gap-3">
                 <ul class="review-card-tags flex flex-col gap-2 text-xs font-medium justify-center md:justify-start">
                   <li class="w-full">
