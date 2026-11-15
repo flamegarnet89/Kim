@@ -200,7 +200,7 @@ const reviewMarkdown =
               <div class="text-base flex flex-wrap justify-center md:justify-start">
                 {Object.entries(entry.data.links).map(([name, link]) => (
                   <a
-                    class={`no-under btn-xs ${compactControlSize} text-white bg-${r}-700 hover:bg-${r}-600 mt-2 mr-2`}
+                    o-under btn-xs ${compactControlSize} ${['royal-road', 'audiobook', 'amazon'].includes(name.toLowerCase().replaceAll(' ', '-')) ? 'review-link-small' : ''} text-white bg-${r}-700 hover:bg-${r}-600 mt-2 mr-2`}
                     href={link}
                   >
                     <span>{titleCase(name)}</span>
