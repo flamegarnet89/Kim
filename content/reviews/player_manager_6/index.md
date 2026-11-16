@@ -1,4 +1,6 @@
 ---
+series_name: "Player Manager"
+series_order: 6
 title: "A Review of Ted Steel's 'Player Manager Book 6'"
 description: "6"
 date: 2026-07-13
@@ -6,6 +8,7 @@ auth: Ted Steel
 categories: [book-reviews]
 review: F
 weight: 600001
+serieswordcount: 4000000
 name: "Player Manager Book 6"
 links:
     amazon: https://www.amazon.com/Player-Manager-Sports-Progression-Fantasy-ebook/dp/B0CCJYPD2Z
@@ -15,6 +18,7 @@ aliases: [/book-reviews/player_manager_6]
 tags: [completed, litrpg]
 sentence: "666"
 search_terms: "Soccer Supremo Max Best Football Manager Championship Manager"
+read_through: Player Manager and Soccer Supremo Completed, DoF Book 1
 ---
 
 *As of writing this, I've read the first two books.*
