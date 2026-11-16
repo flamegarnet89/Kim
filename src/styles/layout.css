@@ -21,6 +21,24 @@ body {
   }
 }
 
+series-review-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-green-500) 55%, transparent) transparent;
+}
+.series-review-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.series-review-scroll::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+.series-review-scroll::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-green-500/50;
+}
+.series-review-scroll::-webkit-scrollbar-thumb:hover {
+  @apply bg-green-500/80;
+}
+
+
 .blog-post h2,
 .blog-post h3,
 .blog-post h4,
