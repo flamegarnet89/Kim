@@ -146,11 +146,7 @@ const reviewMarkdown =
 <BaseLayout title={entry.data.name} description={ogDescription} image={ogImage} type="article">
   <div class="content content blog-post relative">
     <div class="section-header blog">
-      <h1 class={`title rating rating-${r} text-center`}>{entry.data.name}</h1>
-      <p class="text-center">Date Read: {dateString}</p>
-      {entry.data.read_through && (
-        <p class="text-center">Read up to: {entry.data.read_through}</p>
-      )}
+      <h1 class={`title rating rating-${r} text-center`}>{entry.data.name}</h1>      
     </div>
     <div class="max-w-4xl mx-auto mt-4 mb-16">
       <article class={`w-full review-summary bg-green-800 rounded-xl review-${r}`}>
@@ -226,6 +222,12 @@ const reviewMarkdown =
           </div>
         </div>
       </article>
+      <div class="mt-4 text-center">
+        <p>{dateString}</p>
+        {entry.data.read_through && (
+          <p>Read up to: {entry.data.read_through}</p>
+        )}
+      </div>
     </div>
     <div class="max-w-xl2 mx-auto review-article"><Content /></div>
     <div class="mt-20">
