@@ -335,7 +335,7 @@
 
 .rating {
   p.larger {
-    @apply text-4xl;
+    @apply text-[2.125rem];
     @variant sm {
       @apply text-3xl;
     }
