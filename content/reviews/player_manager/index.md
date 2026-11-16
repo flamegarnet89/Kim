@@ -16,6 +16,7 @@ aliases: [/book-reviews/player_manager]
 tags: [completed, series, litrpg, male-lead, female-lead]
 sentence: "A progression fantasy set in the modern world, perfect for fans of Football Manager, the FIFA games, and last-minute disallowed goals."
 search_terms: "Soccer Supremo Max Best Football Manager Championship Manager"
+read_through: Player Manager and Soccer Supremo Completed, DoF Book 1
 ---
 
 *As of writing this, I've read the first two books.*
