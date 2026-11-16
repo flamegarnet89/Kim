@@ -433,6 +433,9 @@ series-review-scroll {
   ul {
     @apply max-w-2xl mx-auto my-6 list-disc pl-8;
   }
+  .blog-post .series-review-paginator ul {
+    @apply m-0 list-none p-0;
+  }
   ol {
     @apply max-w-2xl mx-auto my-6 list-decimal pl-8;
   }
