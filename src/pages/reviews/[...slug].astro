@@ -253,12 +253,12 @@ const reviewMarkdown =
           aria-label={`${entry.data.series_name} book reviews`}
           class="series-review-paginator mt-4 grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)_minmax(0,1fr)] items-center gap-2"
         >
-          <div class="min-w-0">
+          <div class="flex min-w-0 items-center justify-start">
             {previousReview && (
               <a
                 href={withBase(`/reviews/${previousReview.id}/`)}
                 rel="prev"
-                class="inline-block rounded px-2 py-1 hover:bg-green-500 focus-visible:bg-green-500"
+                class="inline-flex w-fit whitespace-nowrap rounded px-2 py-1 underline underline-offset-4 hover:bg-green-500 focus-visible:bg-green-500"
               >
                 ← Prev
               </a>
@@ -268,12 +268,12 @@ const reviewMarkdown =
           <div class="series-review-scroll min-w-0 overflow-x-auto">
             <ul class="m-0 flex w-max min-w-full list-none items-center justify-center gap-2 p-0 py-1">
               {seriesReviews.map((review) => (
-                <li class="shrink-0">
+                <li class="m-0 shrink-0 list-none p-0">
                   <a
                     href={withBase(`/reviews/${review.id}/`)}
                     aria-current={review.id === entry.id ? 'page' : undefined}
                     title={review.data.name}
-                    class="inline-block rounded px-2 py-1 hover:bg-green-500 focus-visible:bg-green-500"
+                    class="inline-flex w-fit whitespace-nowrap rounded px-2 py-1 underline underline-offset-4 hover:bg-green-500 focus-visible:bg-green-500"
                   >
                     {review.data.short_title ?? review.data.name}
                   </a>
@@ -282,12 +282,12 @@ const reviewMarkdown =
             </ul>
           </div>
 
-          <div class="min-w-0 text-right">
+          <div class="flex min-w-0 items-center justify-end">
             {nextReview && (
               <a
                 href={withBase(`/reviews/${nextReview.id}/`)}
                 rel="next"
-                class="inline-block rounded px-2 py-1 underline underline-offset-4 hover:bg-green-500 focus-visible:bg-green-500"
+                class="inline-flex w-fit whitespace-nowrap rounded px-2 py-1 underline underline-offset-4 hover:bg-green-500 focus-visible:bg-green-500"
               >
                 Next →
               </a>
