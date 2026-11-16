@@ -2,6 +2,7 @@
 series_name: "Player Manager"
 series_order: 6
 title: "A Review of Ted Steel's 'Player Manager Book 6'"
+short_title: "PM Book 6"
 description: "6"
 date: 2026-07-13
 auth: Ted Steel
