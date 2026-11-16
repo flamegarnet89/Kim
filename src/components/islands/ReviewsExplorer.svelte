@@ -31,7 +31,7 @@
 	import { formatWordCount } from '../../lib/wordcount';
 
   type Layout = 'wide' | 'cover' | 'tier';
-	type SortOrder = 'rank' | 'recent' | 'wordcount';
+	type SortOrder = 'rank' | 'recent' | 'wordcount-desc' | 'wordcount-asc';
 
   type Props = {
     posts: Post[];
@@ -325,7 +325,15 @@
 		if (params.has('o')) {
       out.sortOrder = params.get('o') === '1' ? 'rank' : 'recent';
     }
-    if (params.get('sort') === 'wordcount') out.sortOrder = 'wordcount';
+    const wordCountSort = params.get('sort');
+		if (wordCountSort === 'wordcount-asc') {
+      out.sortOrder = 'wordcount-asc';
+    } else if (
+      wordCountSort === 'wordcount-desc' ||
+      wordCountSort === 'wordcount'
+    ) {
+      out.sortOrder = 'wordcount-desc';
+    }
     if (params.has('l')) out.layout = params.get('l') as Layout;
     if (params.has('status')) {
       const status = params.get('status');
@@ -446,7 +454,8 @@
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams();
     if (sortOrder === 'recent') params.set('o', '0');
-    if (sortOrder === 'wordcount') params.set('sort', 'wordcount');
+    if (sortOrder === 'wordcount-desc') params.set('sort', 'wordcount-desc');
+    if (sortOrder === 'wordcount-asc') params.set('sort', 'wordcount-asc');
     if (layout !== defaultLayout) params.set('l', layout);
     if (completionFilter !== 'all') params.set('status', completionFilter);
     if (bookFilter !== 'all') params.set('book', bookFilter);
@@ -741,10 +750,15 @@
         if (layout === 'tier' || sortOrder === 'rank') {
           return a.weight - b.weight;
         }
-        if (sortOrder === 'wordcount') {
-          // Missing counts sort last; rank and date make ties deterministic.
+        if (sortOrder === 'wordcount-desc' || sortOrder === 'wordcount-asc') {
+          // Keep entries without counts last in either direction.
+          if (a.serieswordcount == null && b.serieswordcount != null) return 1;
+          if (b.serieswordcount == null && a.serieswordcount != null) return -1;
+
+          const aCount = a.serieswordcount ?? 0;
+          const bCount = b.serieswordcount ?? 0;
           const wordCountDiff =
-            (b.serieswordcount ?? -1) - (a.serieswordcount ?? -1);
+            sortOrder === 'wordcount-desc' ? bCount - aCount : aCount - bCount;
           return wordCountDiff || a.weight - b.weight || b.date.localeCompare(a.date);
         }
         return a.date < b.date ? 1 : -1;
@@ -954,20 +968,25 @@
       </button>
       <button
         type="button"
-        aria-pressed={sortOrder === 'wordcount'}
+        aria-pressed={sortOrder === 'wordcount-desc' || sortOrder === 'wordcount-asc'}
+        aria-label={`Word count ${
+          sortOrder === 'wordcount-asc' ? 'ascending' : 'descending'
+        }`}
         disabled={layout === 'tier'}
         class={`px-4 py-2 rounded-r-md text-lg sm:text-base ${
           layout === 'tier'
             ? 'cursor-not-allowed opacity-50'
             : 'cursor-pointer'
         } ${
-          sortOrder === 'wordcount'
+          sortOrder === 'wordcount-desc' || sortOrder === 'wordcount-asc'
             ? 'bg-green-500 text-green-50'
             : 'bg-green-700 text-green-400 hover:bg-green-500 hover:text-green-50'
         }`}
-        onclick={() => (sortOrder = 'wordcount')}
+        onclick={() =>
+          (sortOrder =
+            sortOrder === 'wordcount-desc' ? 'wordcount-asc' : 'wordcount-desc')}
       >
-        Word count ↓
+        Word count {sortOrder === 'wordcount-asc' ? '↑' : '↓'}
       </button>
     </div>
 
