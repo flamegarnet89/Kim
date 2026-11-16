@@ -30,8 +30,14 @@ export async function getStaticPaths() {
 const { entry, allEntries } = Astro.props;
 const { Content } = await render(entry);
 const r = entry.data.review;
-const [year, month, day] = entry.data.date.toISOString().slice(0, 10).split('-');
-const dateString = `${day}-${month}-${year}`;
+const [year, , day] = entry.data.date.toISOString().slice(0, 10).split('-');
+const monthName = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  timeZone: 'UTC',
+})
+  .format(entry.data.date)
+  .toUpperCase();
+const dateString = `${day}-${monthName}-${year}`;
 
 const ogImage = `/og/${entry.id}.webp`;
 const ogDescription =
