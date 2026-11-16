@@ -230,9 +230,10 @@ const reviewMarkdown =
         </div>
       </article>
       <div class="mt-4 text-center">
-        <em>Read On: {dateString}</em>
+        <p>Read: {dateString}</p>
+        <br />
         {entry.data.read_through && (
-          <em>Read To: {entry.data.read_through}</em>
+          <p>Read To: {entry.data.read_through}</p>
         )}
       </div>
     </div>
