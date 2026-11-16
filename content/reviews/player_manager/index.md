@@ -2,7 +2,7 @@
 series_name: "Player Manager"
 series_order: 1
 title: "A Review of Ted Steel's 'Player Manager'"
-short_title: PM Book 1
+short_title: "PM Book 1"
 description: "A Football Manager obsessive gets the game's scouting interface for real — a grounded, low-fantasy litrpg where the powers are easy and the respect is not."
 date: 2026-07-13
 auth: Ted Steel
