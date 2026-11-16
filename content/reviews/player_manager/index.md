@@ -6,6 +6,7 @@ auth: Ted Steel
 categories: [book-reviews]
 review: A
 weight: 100001
+serieswordcount: 4000000
 name: "Player Manager"
 links:
     amazon: https://www.amazon.com/Player-Manager-Sports-Progression-Fantasy-ebook/dp/B0CCJYPD2Z
