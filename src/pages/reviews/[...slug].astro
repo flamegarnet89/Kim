@@ -30,6 +30,7 @@ export async function getStaticPaths() {
 const { entry, allEntries } = Astro.props;
 const { Content } = await render(entry);
 const r = entry.data.review;
+const dateString = entry.data.date.toISOString().slice(0, 10);
 
 const ogImage = `/og/${entry.id}.webp`;
 const ogDescription =
@@ -146,6 +147,10 @@ const reviewMarkdown =
   <div class="content content blog-post relative">
     <div class="section-header blog">
       <h1 class={`title rating rating-${r} text-center`}>{entry.data.name}</h1>
+      <p class="text-center">Date Read: {dateString}</p>
+      {entry.data.read_through && (
+        <p class="text-center">Read up to: {entry.data.read_through}</p>
+      )}
     </div>
     <div class="max-w-4xl mx-auto mt-4 mb-16">
       <article class={`w-full review-summary bg-green-800 rounded-xl review-${r}`}>
