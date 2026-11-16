@@ -750,10 +750,6 @@
           return a.weight - b.weight;
         }
         if (sortOrder === 'wordcount-desc' || sortOrder === 'wordcount-asc') {
-          // Keep entries without counts last in either direction.
-          if (a.serieswordcount == null && b.serieswordcount != null) return 1;
-          if (b.serieswordcount == null && a.serieswordcount != null) return -1;
-
           const aCount = a.serieswordcount ?? 0;
           const bCount = b.serieswordcount ?? 0;
           const wordCountDiff =
