@@ -37,6 +37,10 @@ series-review-scroll {
 .series-review-scroll::-webkit-scrollbar-thumb:hover {
   @apply bg-green-500/80;
 }
+.blog-post .series-review-paginator ul,
+.blog-post .series-review-paginator li {
+  @apply m-0 list-none p-0;
+}
 
 
 .blog-post h2,
