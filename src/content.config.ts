@@ -7,6 +7,8 @@ const reviews = defineCollection({
   loader: glob({ pattern: '*/index.md', base: './content/reviews' }),
   schema: ({ image: _image }) =>
     z.object({
+      series_name: z.string().trim().min(1).optional(),
+      series_order: z.number().int().positive().optional(),
       title: z.string(),
       name: z.string(),
       description: z.string(),
