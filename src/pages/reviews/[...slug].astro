@@ -258,9 +258,9 @@ const reviewMarkdown =
               <a
                 href={withBase(`/reviews/${previousReview.id}/`)}
                 rel="prev"
-                class="inline-block rounded px-2 py-1 underline underline-offset-4 hover:bg-green-500 focus-visible:bg-green-500"
+                class="inline-block rounded px-2 py-1 hover:bg-green-500 focus-visible:bg-green-500"
               >
-                ← Previous
+                ← Prev
               </a>
             )}
           </div>
@@ -273,7 +273,7 @@ const reviewMarkdown =
                     href={withBase(`/reviews/${review.id}/`)}
                     aria-current={review.id === entry.id ? 'page' : undefined}
                     title={review.data.name}
-                    class="inline-block rounded px-2 py-1 underline underline-offset-4 hover:bg-green-500 focus-visible:bg-green-500"
+                    class="inline-block rounded px-2 py-1 hover:bg-green-500 focus-visible:bg-green-500"
                   >
                     {review.data.short_title ?? review.data.name}
                   </a>
