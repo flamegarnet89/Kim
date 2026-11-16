@@ -2,6 +2,7 @@
 series_name: "Player Manager"
 series_order: 7
 title: "A Review of Ted Steel's 'Player Manager Book 7'"
+short_title: "PM Book 7"
 description: "7"
 date: 2026-07-13
 auth: Ted Steel
