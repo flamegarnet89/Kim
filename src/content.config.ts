@@ -26,6 +26,7 @@ const reviews = defineCollection({
         },
         z.number().int().positive()
       ).optional(),
+      read_through: z.string().optional(),
       search_terms: z.string().default(''),
       aliases: z.array(z.string()).default([]),
       // The frontmatter uses Hugo's `links: { amazon: "...", audible: "..." }`
