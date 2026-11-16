@@ -30,6 +30,26 @@ export async function getStaticPaths() {
 const { entry, allEntries } = Astro.props;
 const { Content } = await render(entry);
 const r = entry.data.review;
+const seriesReviews = entry.data.series_name
+  ? allEntries
+      .filter(
+        (review) =>
+          review.data.series_name === entry.data.series_name &&
+          review.data.series_order != null,
+      )
+      .sort(
+        (a, b) =>
+          a.data.series_order! - b.data.series_order! ||
+          a.data.name.localeCompare(b.data.name) ||
+          a.id.localeCompare(b.id),
+      )
+  : [];
+const seriesIndex = seriesReviews.findIndex((review) => review.id === entry.id);
+const previousReview = seriesIndex > 0 ? seriesReviews[seriesIndex - 1] : undefined;
+const nextReview =
+  seriesIndex >= 0 && seriesIndex < seriesReviews.length - 1
+    ? seriesReviews[seriesIndex + 1]
+    : undefined;
 const [year, , day] = entry.data.date.toISOString().slice(0, 10).split('-');
 const monthName = new Intl.DateTimeFormat('en-US', {
   month: 'short',
