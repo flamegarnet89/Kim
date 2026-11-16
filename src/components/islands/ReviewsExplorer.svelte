@@ -321,7 +321,6 @@
     if (typeof window === 'undefined') return out;
     const params = new URLSearchParams(window.location.search);
     if (params.has('source')) out.sourceActivations = {};
-    if (params.has('o')) out.byRank = params.get('o') === '1';
 		if (params.has('o')) {
       out.sortOrder = params.get('o') === '1' ? 'rank' : 'recent';
     }
@@ -969,9 +968,13 @@
       <button
         type="button"
         aria-pressed={sortOrder === 'wordcount-desc' || sortOrder === 'wordcount-asc'}
-        aria-label={`Word count ${
-          sortOrder === 'wordcount-asc' ? 'ascending' : 'descending'
-        }`}
+				aria-label={
+          sortOrder === 'wordcount-asc'
+            ? 'Word Count ascending'
+            : sortOrder === 'wordcount-desc'
+              ? 'Word Count descending'
+              : 'Sort by Word Count'
+        }
         disabled={layout === 'tier'}
         class={`px-4 py-2 rounded-r-md text-lg sm:text-base ${
           layout === 'tier'
@@ -986,7 +989,11 @@
           (sortOrder =
             sortOrder === 'wordcount-desc' ? 'wordcount-asc' : 'wordcount-desc')}
       >
-        Word count {sortOrder === 'wordcount-asc' ? '↑' : '↓'}
+        {sortOrder === 'wordcount-desc'
+          ? 'Word Count ↓'
+          : sortOrder === 'wordcount-asc'
+            ? 'Word Count ↑'
+            : 'Word Count'}
       </button>
     </div>
 
