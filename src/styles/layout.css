@@ -20,7 +20,6 @@ body {
     border: 0.125rem solid var(--scrollbarBG);
   }
 }
-
 series-review-scroll {
   scrollbar-width: thin;
   scrollbar-color: color-mix(in srgb, var(--color-green-500) 55%, transparent) transparent;
@@ -29,7 +28,7 @@ series-review-scroll {
   height: 4px;
 }
 .series-review-scroll::-webkit-scrollbar-track {
-  @apply bg-transparent;
+  background: transparent;
 }
 .series-review-scroll::-webkit-scrollbar-thumb {
   @apply rounded-full bg-green-500/50;
@@ -39,24 +38,8 @@ series-review-scroll {
 }
 .blog-post .series-review-paginator ul,
 .blog-post .series-review-paginator li {
-  @apply m-0 list-none p-0;
-}
-.series-review-scroll {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-green-400) transparent;
-}
-.series-review-scroll::-webkit-scrollbar {
-  height: 8px;
-}
-.series-review-scroll::-webkit-scrollbar-track {
-  background: transparent;
-  border-top: 4px solid transparent;
-  background-clip: content-box;
-}
-.series-review-scroll::-webkit-scrollbar-thumb {
-  background-color: var(--color-green-400);
-  border-radius: 9999px;
-}
+   @apply m-0 list-none p-0;
+ }
 
 .blog-post h2,
 .blog-post h3,
