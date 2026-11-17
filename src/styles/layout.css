@@ -25,7 +25,7 @@ series-review-scroll {
   scrollbar-color: color-mix(in srgb, var(--color-green-500) 55%, transparent) transparent;
 }
 .series-review-scroll::-webkit-scrollbar {
-  height: 4px;
+  height: 6px;
 }
 .series-review-scroll::-webkit-scrollbar-track {
   background: transparent;
