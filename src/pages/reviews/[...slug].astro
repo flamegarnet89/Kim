@@ -251,14 +251,14 @@ const reviewMarkdown =
       {seriesReviews.length > 1 && (
         <nav
           aria-label={`${entry.data.series_name} book reviews`}
-          class="series-review-paginator mt-4 grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-2"
+          class="series-review-paginator mt-4 grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-1"
         >
           <div class="flex min-w-0 items-start justify-start">
             {previousReview && (
               <a
                 href={withBase(`/reviews/${previousReview.id}/`)}
                 rel="prev"
-                class="inline-flex w-fit whitespace-nowrap rounded px-2 py-1 underline underline-offset-4 hover:bg-green-500 focus-visible:bg-green-500"
+                class="inline-flex w-fit whitespace-nowrap rounded px-1.5 py-0.5 text-sm! underline decoration-green-500 underline-offset-2 hover:bg-green-500 focus-visible:bg-green-500"
               >
                 ← Prev
               </a>
@@ -266,14 +266,14 @@ const reviewMarkdown =
           </div>
 
           <div class="series-review-scroll min-w-0 overflow-x-auto pb-2">
-            <ul class="m-0 flex w-max min-w-full list-none items-center justify-center gap-2 p-0 py-1">
+            <ul class="m-0 flex w-max min-w-full list-none items-center justify-center gap-1 p-0 py-0.5">
               {seriesReviews.map((review) => (
                 <li class="m-0 shrink-0 list-none p-0">
                   <a
                     href={withBase(`/reviews/${review.id}/`)}
                     aria-current={review.id === entry.id ? 'page' : undefined}
                     title={review.data.name}
-                    class="inline-flex w-fit whitespace-nowrap rounded px-2 py-1 underline underline-offset-4 hover:bg-green-500 focus-visible:bg-green-500"
+                    class="inline-flex w-fit whitespace-nowrap rounded px-1.5 py-0.5 text-sm! underline decoration-green-500 underline-offset-2 hover:bg-green-500 focus-visible:bg-green-500"
                   >
                     {review.data.short_title ?? review.data.name}
                   </a>
@@ -287,7 +287,7 @@ const reviewMarkdown =
               <a
                 href={withBase(`/reviews/${nextReview.id}/`)}
                 rel="next"
-                class="inline-flex w-fit whitespace-nowrap rounded px-2 py-1 underline underline-offset-4 hover:bg-green-500 focus-visible:bg-green-500"
+                class="inline-flex w-fit whitespace-nowrap rounded px-1.5 py-0.5 text-sm! underline decoration-green-500 underline-offset-2 hover:bg-green-500 focus-visible:bg-green-500"
               >
                 Next →
               </a>
