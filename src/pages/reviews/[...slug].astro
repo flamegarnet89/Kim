@@ -251,9 +251,9 @@ const reviewMarkdown =
       {seriesReviews.length > 1 && (
         <nav
           aria-label={`${entry.data.series_name} book reviews`}
-          class="series-review-paginator mt-4 grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-1"
+          class="series-review-paginator mt-4 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-1"
         >
-          <div class="flex min-w-0 items-start justify-start">
+          <div class="flex min-w-0 items-center justify-start">
             {previousReview && (
               <a
                 href={withBase(`/reviews/${previousReview.id}/`)}
@@ -282,7 +282,7 @@ const reviewMarkdown =
             </ul>
           </div>
 
-          <div class="flex min-w-0 items-start justify-end">
+          <div class="flex min-w-0 items-center justify-end">
             {nextReview && (
               <a
                 href={withBase(`/reviews/${nextReview.id}/`)}
