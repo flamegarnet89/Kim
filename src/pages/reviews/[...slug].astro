@@ -259,7 +259,7 @@ const reviewMarkdown =
                 <a
                   href={withBase(`/reviews/${previousReview.id}/`)}
                   rel="prev"
-                  class="inline-flex w-fit whitespace-nowrap bg-colour-800 rounded-md px-2 py-0.5 text-lg! sm:text-base! text-green-300! shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
+                  class="inline-flex w-fit whitespace-nowrap bg-colour-800 rounded-md px-2 py-0.5 text-xl! sm:text-base! text-green-300! shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
                 >
                   ← Prev
                 </a>
@@ -274,7 +274,7 @@ const reviewMarkdown =
                       href={withBase(`/reviews/${review.id}/`)}
                       aria-current={review.id === entry.id ? 'page' : undefined}
                       title={review.data.name}
-                      class="inline-flex w-fit whitespace-nowrap rounded-md px-1.5 py-0.5 text-lg! sm:text-base! text-green-300! underline shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
+                      class="inline-flex w-fit whitespace-nowrap rounded-md px-1.5 py-0.5 text-xl! sm:text-base! text-green-300! underline shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
                     >
                       {review.data.short_title ?? review.data.name}
                     </a>
@@ -288,7 +288,7 @@ const reviewMarkdown =
                 <a
                   href={withBase(`/reviews/${nextReview.id}/`)}
                   rel="next"
-                  class="inline-flex w-fit whitespace-nowrap bg-colour-800 rounded-md px-2 py-0.5 text-lg! sm:text-base! text-green-300! shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
+                  class="inline-flex w-fit whitespace-nowrap bg-colour-800 rounded-md px-2 py-0.5 text-xl! sm:text-base! text-green-300! shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
                 >
                   Next →
                 </a>
