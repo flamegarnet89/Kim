@@ -249,51 +249,53 @@ const reviewMarkdown =
         </div>
       </article>
       {seriesReviews.length > 1 && (
-        <nav
-          aria-label={`${entry.data.series_name} book reviews`}
-          class="series-review-paginator mx-auto mt-4 w-full max-w-xl2 grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-1"
-        >
-          <div class="flex min-w-0 items-baseline justify-start">
-            {previousReview && (
-              <a
-                href={withBase(`/reviews/${previousReview.id}/`)}
-                rel="prev"
-                class="inline-flex w-fit whitespace-nowrap rounded-md px-1.5 py-0.5 text-sm! text-green-400! transition-colors hover:bg-green-500! hover:text-green-50!"
-              >
-                ← Prev
-              </a>
-            )}
-          </div>
+        <div class="mx-auto mt-4 max-w-xl2">
+          <nav
+            aria-label={`${entry.data.series_name} book reviews`}
+            class="series-review-paginator grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-1"
+          >
+            <div class="flex min-w-0 items-baseline justify-start">
+              {previousReview && (
+                <a
+                  href={withBase(`/reviews/${previousReview.id}/`)}
+                  rel="prev"
+                  class="no-under inline-flex w-fit whitespace-nowrap rounded-md bg-green-700 px-1.5 py-0.5 text-sm! text-green-300! shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
+                >
+                  ← Prev
+                </a>
+              )}
+            </div>
 
-          <div class="series-review-scroll min-w-0 overflow-x-auto">
-            <ul class="m-0 flex w-max min-w-full list-none items-baseline justify-center gap-1 p-0">
-              {seriesReviews.map((review) => (
-                <li class="m-0 shrink-0 list-none p-0">
-                  <a
-                    href={withBase(`/reviews/${review.id}/`)}
-                    aria-current={review.id === entry.id ? 'page' : undefined}
-                    title={review.data.name}
-                    class="inline-flex w-fit whitespace-nowrap rounded-md px-1.5 py-0.5 text-sm! text-green-400! transition-colors hover:bg-green-500! hover:text-green-50!"
-                  >
-                    {review.data.short_title ?? review.data.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+            <div class="series-review-scroll min-w-0 overflow-x-auto">
+              <ul class="m-0 flex w-max min-w-full list-none items-baseline justify-center gap-1 p-0">
+                {seriesReviews.map((review) => (
+                  <li class="m-0 shrink-0 list-none p-0">
+                    <a
+                      href={withBase(`/reviews/${review.id}/`)}
+                      aria-current={review.id === entry.id ? 'page' : undefined}
+                      title={review.data.name}
+                      class="no-under inline-flex w-fit whitespace-nowrap rounded-md bg-green-700 px-1.5 py-0.5 text-sm! text-green-300! shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
+                    >
+                      {review.data.short_title ?? review.data.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          <div class="flex min-w-0 items-baseline justify-end">
-            {nextReview && (
-              <a
-                href={withBase(`/reviews/${nextReview.id}/`)}
-                rel="next"
-                class="inline-flex w-fit whitespace-nowrap rounded-md px-1.5 py-0.5 text-sm! text-green-400! transition-colors hover:bg-green-500! hover:text-green-50!"
-              >
-                Next →
-              </a>
-            )}
-          </div>
-        </nav>
+            <div class="flex min-w-0 items-baseline justify-end">
+              {nextReview && (
+                <a
+                  href={withBase(`/reviews/${nextReview.id}/`)}
+                  rel="next"
+                  class="no-under inline-flex w-fit whitespace-nowrap rounded-md bg-green-700 px-1.5 py-0.5 text-sm! text-green-300! shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
+                >
+                  Next →
+                </a>
+              )}
+            </div>
+          </nav>
+        </div>
       )}
       <div class="mt-8 text-left">
         <p class = "text-green-100!" >Read On:    {dateString}</p>
