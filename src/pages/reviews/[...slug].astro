@@ -251,7 +251,7 @@ const reviewMarkdown =
       {seriesReviews.length > 1 && (
         <nav
           aria-label={`${entry.data.series_name} book reviews`}
-          class="series-review-paginator mt-4 grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-1"
+          class="series-review-paginator mx-auto mt-4 w-full max-w-xl2 grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-1"
         >
           <div class="flex min-w-0 items-baseline justify-start">
             {previousReview && (
