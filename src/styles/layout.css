@@ -41,7 +41,22 @@ series-review-scroll {
 .blog-post .series-review-paginator li {
   @apply m-0 list-none p-0;
 }
-
+.series-review-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-green-400) transparent;
+}
+.series-review-scroll::-webkit-scrollbar {
+  height: 8px;
+}
+.series-review-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  border-top: 4px solid transparent;
+  background-clip: content-box;
+}
+.series-review-scroll::-webkit-scrollbar-thumb {
+  background-color: var(--color-green-400);
+  border-radius: 9999px;
+}
 
 .blog-post h2,
 .blog-post h3,
