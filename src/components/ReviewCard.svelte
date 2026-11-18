@@ -12,7 +12,7 @@
 
   type Props = {
     post: Post;
-    layout: 'wide' | 'cover' | 'tier';
+    layout: 'wide' | 'cover' | 'tier' | 'all-posts';
     tagColorClasses?: Record<string, string>;
     displayTagLabels?: Record<string, string>;
     isBookmarked?: boolean;
@@ -49,7 +49,7 @@
 
   // Explicit sizes avoid auto sizing a newly mounted card before its grid
   // has laid out, which can request the largest candidate during transitions.
-  const sizes = $derived(layout === 'wide' ? '250px' : layout === 'cover'
+  const sizes = $derived(layout === 'all-posts' ? '600px' : layout === 'wide' ? '250px' : layout === 'cover'
     ? '(min-width: 640px) 250px, min(250px, calc(45vw - 20.4px))'
     : '(min-width: 640px) 150px, calc((100vw - 112px) / 3)');
   let imgEl: HTMLImageElement | undefined = $state();
@@ -178,9 +178,9 @@
       href={post.link}
     >
       <div class="card_layer">
-        <article class="review-summary review-{post.review}">
+        <article class="review-summary review-{post.review}" data-layout={layout}>
           <div class="bg2">
-            <div class="bg-inner flex flex-col md:flex-row w-full bg-green-700">
+            <div class="bg-inner flex flex-col {layout === 'wide' ? 'md:flex-row' : ''} w-full bg-green-700">
             {#if onToggleBookmark}
                 <button
                     type="button"
@@ -210,6 +210,9 @@
                 {/if}
               <figure
                 class="block flex-none bg-cover {layout === 'wide' ? '' : 'w-full'}"
+                style={layout === 'all-posts'
+                  ? 'width:100%;max-width:none;aspect-ratio:16/9;overflow:hidden;margin:0'
+                  : undefined}
               >
                 {#if post.video}
                   <video
@@ -227,7 +230,8 @@
                   <img
                     bind:this={imgEl}
                     loading="lazy"
-                    class="block flex-none bg-cover mx-auto {wideRoundedClass}"
+                    class="block flex-none bg-cover mx-auto {layout === 'all-posts' ? 'w-full h-full object-cover' : ''} {wideRoundedClass}"
+                    style={layout === 'all-posts' ? 'width:100%;height:100%;object-fit:cover;aspect-ratio:auto' : undefined}
                     {sizes}
                     srcset={post.cover?.srcset}
                     src={post.img}
@@ -252,7 +256,7 @@
               <!-- Only the wide layout shows the text panel; cover/tier
                    previously hid it with CSS but rendered it for every card,
                    which is real HTML weight across ~160 reviews. -->
-              {#if layout === 'wide'}
+              {#if layout === 'wide' || layout === 'all-posts'}
                 <div class="flex flex-col justify-between p-4 text-center side-card-content">
                   <div class="rating">
                     <p class="small rating-{post.review}">
