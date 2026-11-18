@@ -739,8 +739,22 @@
           if (active === false && year === tag) return false;
         }
         if (words.length) {
+					const reviewDate = new Date(post.date);
+          const dateSearchText = Number.isNaN(reviewDate.getTime())
+            ? post.date
+            : [
+                post.date,
+                String(reviewDate.getFullYear()),
+                reviewDate.toLocaleDateString('en', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                }),
+              ].join(' ');
+          const searchableText = `${post.search_term} ${dateSearchText}`.toLowerCase();
+
           for (const w of words) {
-            if (!post.search_term.includes(w)) return false;
+            if (!searchableText.includes(w)) return false;
           }
         }
         return true;
