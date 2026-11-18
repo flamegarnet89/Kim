@@ -24,7 +24,7 @@
     img_larger: string;
   }
 
-  type Props = { posts: TaggedPost[]; base: string };
+  type Props = { posts: TaggedEntry[]; base: string };
   export interface TaggedReview {
     kind: 'review';
     name: string;
