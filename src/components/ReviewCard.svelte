@@ -178,7 +178,7 @@
       href={post.link}
     >
       <div class="card_layer">
-        <article class="review-summary review-{post.review}" data-layout={layout}>
+        article class={`review-summary ${layout === 'all-posts' ? '' : `review-${post.review}`}`}>
           <div class="bg2">
             <div class="bg-inner flex flex-col {layout === 'wide' ? 'md:flex-row' : ''} w-full bg-green-700">
             {#if onToggleBookmark}
