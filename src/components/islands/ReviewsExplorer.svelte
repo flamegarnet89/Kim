@@ -31,7 +31,7 @@
 	import { formatWordCount } from '../../lib/wordcount';
 
   type Layout = 'wide' | 'cover' | 'tier';
-	type SortOrder = 'rank' | 'recent' | 'wordcount-desc' | 'wordcount-asc';
+	type SortOrder = 'rank' | 'recent' | 'oldest' | 'wordcount-desc' | 'wordcount-asc';
 
   type Props = {
     posts: Post[];
@@ -322,7 +322,8 @@
     const params = new URLSearchParams(window.location.search);
     if (params.has('source')) out.sourceActivations = {};
 		if (params.has('o')) {
-      out.sortOrder = params.get('o') === '1' ? 'rank' : 'recent';
+      const order = params.get('o');
+      out.sortOrder = order === '1' ? 'rank' : order === 'oldest' ? 'oldest' : 'recent';
     }
     const wordCountSort = params.get('sort');
 		if (wordCountSort === 'wordcount-asc') {
@@ -453,6 +454,7 @@
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams();
     if (sortOrder === 'recent') params.set('o', '0');
+    if (sortOrder === 'oldest') params.set('o', 'oldest');
     if (sortOrder === 'wordcount-desc') params.set('sort', 'wordcount-desc');
     if (sortOrder === 'wordcount-asc') params.set('sort', 'wordcount-asc');
     if (layout !== defaultLayout) params.set('l', layout);
@@ -770,7 +772,9 @@
             sortOrder === 'wordcount-desc' ? bCount - aCount : aCount - bCount;
           return wordCountDiff || a.weight - b.weight || b.date.localeCompare(a.date);
         }
-        return a.date < b.date ? 1 : -1;
+        return sortOrder === 'oldest'
+          ? a.date.localeCompare(b.date)
+          : b.date.localeCompare(a.date);
       });
   });
 
@@ -965,15 +969,15 @@
       </button>
       <button
         type="button"
-        aria-pressed={sortOrder === 'recent'}
+        aria-pressed={sortOrder === 'recent' || sortOrder === 'oldest'}
         class={`px-4 py-2 text-lg sm:text-base cursor-pointer ${
-          sortOrder === 'recent'
+          sortOrder === 'recent' || sortOrder === 'oldest'
             ? 'bg-green-500 text-green-50'
             : 'bg-green-700 text-green-400 hover:bg-green-500 hover:text-green-50'
         }`}
-        onclick={() => (sortOrder = 'recent')}
+        onclick={() => (sortOrder = sortOrder === 'recent' ? 'oldest' : 'recent')}
       >
-        Recent
+        {sortOrder === 'oldest' ? 'Oldest ↑' : 'Recent ↓'}
       </button>
       <button
         type="button"
