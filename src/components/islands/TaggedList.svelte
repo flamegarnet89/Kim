@@ -231,7 +231,7 @@
       {#if post.kind === 'review'}
         <ReviewCard
           post={{ ...post.reviewPost, tags: ['book-review'] }}
-          layout="wide"
+          layout="all-posts"
           displayTagLabels={{ 'book-review': 'book review' }}
         />
       {:else}
