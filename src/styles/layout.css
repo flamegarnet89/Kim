@@ -39,7 +39,7 @@ body {
   @apply rounded-full bg-green-600/50;
 }
 .series-review-scroll::-webkit-scrollbar-thumb:hover {
-  @apply bg-green-500/80;
+  @apply bg-green-600/80;
 }
 .blog-post .series-review-paginator ul,
 .blog-post .series-review-paginator li {
