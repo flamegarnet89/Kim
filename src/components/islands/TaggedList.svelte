@@ -27,6 +27,7 @@
   let searchTerm = $state('');
   let sortOrder = $state<'recent' | 'oldest'>('recent');
   let selectedYear = $state('');
+  let yearDropdownOpen = $state(false);
 
   const availableYears = $derived(
     [...new Set(posts.map((post) => new Date(post.date).getFullYear()))]
@@ -75,10 +76,20 @@
           if (active === false && post.tags.includes(tag)) return false;
         }
 
+        const postDate = new Date(post.date);
+        const readableDate = Number.isNaN(postDate.getTime())
+          ? post.date
+          : postDate.toLocaleDateString('en', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            });
         const searchableText = [
           post.name,
           post.description,
           ...post.tags,
+          post.date,
+          readableDate,
         ].join(' ').toLowerCase();
         return words.every((word) => searchableText.includes(word));
       })
@@ -110,20 +121,51 @@
     type="search"
     bind:value={searchTerm}
     placeholder="Search posts..."
-    class="form-input w-full max-w-sm"
+    class="form-input w-full max-w-sm border-green-600 bg-green-800 text-green-100 placeholder:text-green-400 focus:border-green-400 focus:ring-green-400"
   />
 
-  <label class="sr-only" for="post-year">Filter posts by year</label>
-  <select
-    id="post-year"
-    bind:value={selectedYear}
-    class="rounded-md bg-green-700 px-4 py-2 text-green-100"
-  >
-    <option value="">All years</option>
-    {#each availableYears as year (year)}
-      <option value={String(year)}>{year}</option>
-    {/each}
-  </select>
+  <div class="year-filter-group">
+    <button
+      type="button"
+      class="year-filter-all {selectedYear === '' ? 'is-active' : ''}"
+      aria-pressed={selectedYear === ''}
+      onclick={() => {
+        selectedYear = '';
+        yearDropdownOpen = false;
+      }}
+    >
+      All
+    </button>
+    <div class="year-dropdown">
+      <button
+        type="button"
+        class="year-dropdown-trigger {selectedYear ? 'is-active' : ''}"
+        aria-haspopup="listbox"
+        aria-expanded={yearDropdownOpen}
+        onclick={() => (yearDropdownOpen = !yearDropdownOpen)}
+      >
+        {selectedYear || 'Year'}
+        <span aria-hidden="true">{yearDropdownOpen ? '▴' : '▾'}</span>
+      </button>
+      {#if yearDropdownOpen}
+        <div class="year-dropdown-options" role="listbox" aria-label="Filter posts by year">
+          {#each availableYears as year (year)}
+            <button
+              type="button"
+              role="option"
+              aria-selected={selectedYear === String(year)}
+              onclick={() => {
+                selectedYear = String(year);
+                yearDropdownOpen = false;
+              }}
+            >
+              {year}
+            </button>
+          {/each}
+        </div>
+      {/if}
+    </div>
+  </div>
 
   <div role="group" aria-label="Sort posts" class="inline-flex overflow-hidden rounded-md">
     <button
