@@ -268,10 +268,10 @@
                    previously hid it with CSS but rendered it for every card,
                    which is real HTML weight across ~160 reviews. -->
               {#if layout === 'wide' || layout === 'all-posts'}
-                <div class="flex flex-col justify-between p-4 text-center side-card-content">
+                <div class="flex flex-col justify-between p-4 {layout === 'all-posts' ? 'text-left' : 'text-center'} side-card-content">
                   {#if layout === 'all-posts'}
                     <div class="mb-3">
-                      <ul class="review-card-tags flex flex-wrap text-sm font-medium justify-center">
+                      <ul class="review-card-tags flex flex-wrap text-sm font-medium justify-start">
                         {#each post.tags as tag (tag)}
                           <li class="m-1 inline-flex text-center py-1 px-3 rounded-full tag-{tag}">
                             {displayTagLabels[tag] ?? tag}
@@ -292,7 +292,7 @@
                       {formatDate(post.date)}
                     </p>
                   {/if}
-                  <p class="text-lg text-green-300 px-3">{post.sentence}</p>
+                  <p class="text-lg text-green-300 {layout === 'all-posts' ? '' : 'px-3'}">{post.sentence}</p>
                   <div>
                     {#if layout === 'wide'}
                     <div class="mb-3">
