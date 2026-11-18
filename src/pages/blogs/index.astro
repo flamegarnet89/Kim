@@ -91,7 +91,7 @@ const reviewPosts: TaggedEntry[] = await Promise.all(
       name: reviewPost.name,
       link: reviewPath,
       date: reviewPost.date,
-      tags: reviewPost.tags,
+      tags: ['book-review'],
       description: reviewPost.description,
       reviewPost,
     };
