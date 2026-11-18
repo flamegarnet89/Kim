@@ -396,6 +396,11 @@
 .tag-poor-to-rich{
   @apply bg-cream-600 text-accent-50 font-medium;
 }  
+
+.tag-travel,
+.tag-writing {
+  @apply bg-cream-600 text-accent-50 font-medium;
+}  
   
 /* book source */
 .tag-amazon,
