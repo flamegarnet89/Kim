@@ -186,7 +186,15 @@ const reviewMarkdown =
             />
             <div class="flex flex-col justify-between md:justify-start md:gap-2 p-4 sm:p-8 text-center md:text-left">
               <div class="rating">
-                <p class={`larger rating-${r}`}>{ratingText}</p>
+                <p class={`larger rating-${r}`}>
+                  {ratingText.includes(':') ? (
+                    <>
+                      {ratingText.slice(0, ratingText.indexOf(':') + 1)}
+                      <br />
+                      {ratingText.slice(ratingText.indexOf(':') + 1).trim()}
+                    </>
+                  ) : ratingText}
+                </p>
               </div>
               <p class="text-lg text-green-400 flex-1 flex items-center">
                 {entry.data.description}
