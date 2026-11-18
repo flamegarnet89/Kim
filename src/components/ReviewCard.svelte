@@ -36,6 +36,14 @@
     return new Intl.NumberFormat('en-US').format(count);
   }
 
+  function formatDate(date: string): string {
+    return new Intl.DateTimeFormat('en', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(new Date(date));
+  }
+
   function roundedTagColorClass(tag: string): string {
     if (isSquareReviewTag(tag)) return '';
     if (PROGRESSION_TAGS.includes(tag as ProgressionTag)) {
@@ -274,9 +282,16 @@
                   {/if}
                   <div class="rating">
                     <p class="small rating-{post.review}">
-                      <span class="leader">{post.name}</span>
+                      <span class="leader">
+                        {layout === 'all-posts' ? post.name : post.name}
+                      </span>
                     </p>
                   </div>
+                  {#if layout === 'all-posts'}
+                    <p class="text-sm text-green-300 mb-2">
+                      {formatDate(post.date)}
+                    </p>
+                  {/if}
                   <p class="text-lg text-green-300 px-3">{post.sentence}</p>
                   <div>
                     {#if layout === 'wide'}
