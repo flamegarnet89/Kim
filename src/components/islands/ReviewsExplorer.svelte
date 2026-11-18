@@ -903,7 +903,7 @@
       href="https://www.reddit.com/user/Confident_Mulberry29/"
       class="font-bold"
       style="color: #ff8b60"
-    >Confident_Mulberry29</a> on reddit :D
+    >Confident_Mulberry29</a> on reddit, talk to meee :D
   </p>
 </div>
 
