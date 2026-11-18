@@ -68,7 +68,7 @@ const reviewPosts: TaggedEntry[] = await Promise.all(
     if (!STATUS_TAGS.some((tag) => tags.has(tag))) tags.add(DEFAULT_STATUS_TAG);
 
     const reviewPost: Post = {
-      name: entry.data.short_title ?? entry.data.name,
+      name: entry.data.name,
       link: reviewPath,
       abslink: new URL(reviewPath, Astro.site!).toString(),
       author: entry.data.auth,
