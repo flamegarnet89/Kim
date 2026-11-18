@@ -115,14 +115,32 @@
 </script>
 
 <div class="mx-auto mt-6 flex max-w-7xl flex-wrap items-center justify-center gap-3 px-4">
-  <label class="sr-only" for="post-search">Search posts</label>
-  <input
-    id="post-search"
-    type="search"
-    bind:value={searchTerm}
-    placeholder="Search posts..."
-    class="form-input w-full max-w-sm border-green-600 bg-green-800 text-green-100 placeholder:text-green-400 focus:border-green-400 focus:ring-green-400"
-  />
+  <div role="group" aria-label="Sort posts" class="inline-flex overflow-hidden rounded-md">
+    <button
+      type="button"
+      aria-pressed={sortOrder === 'recent'}
+      class={`px-4 py-2 ${
+        sortOrder === 'recent'
+          ? 'bg-green-500 text-green-50'
+          : 'bg-green-700 text-green-400 hover:bg-green-500 hover:text-green-50'
+      }`}
+      onclick={() => (sortOrder = 'recent')}
+    >
+      Recent
+    </button>
+    <button
+      type="button"
+      aria-pressed={sortOrder === 'oldest'}
+      class={`px-4 py-2 ${
+        sortOrder === 'oldest'
+          ? 'bg-green-500 text-green-50'
+          : 'bg-green-700 text-green-400 hover:bg-green-500 hover:text-green-50'
+      }`}
+      onclick={() => (sortOrder = 'oldest')}
+    >
+      Oldest
+    </button>
+  </div>
 
   <div class="year-filter-group">
     <button
@@ -167,32 +185,14 @@
     </div>
   </div>
 
-  <div role="group" aria-label="Sort posts" class="inline-flex overflow-hidden rounded-md">
-    <button
-      type="button"
-      aria-pressed={sortOrder === 'recent'}
-      class={`px-4 py-2 ${
-        sortOrder === 'recent'
-          ? 'bg-green-500 text-green-50'
-          : 'bg-green-700 text-green-400 hover:bg-green-500 hover:text-green-50'
-      }`}
-      onclick={() => (sortOrder = 'recent')}
-    >
-      Recent
-    </button>
-    <button
-      type="button"
-      aria-pressed={sortOrder === 'oldest'}
-      class={`px-4 py-2 ${
-        sortOrder === 'oldest'
-          ? 'bg-green-500 text-green-50'
-          : 'bg-green-700 text-green-400 hover:bg-green-500 hover:text-green-50'
-      }`}
-      onclick={() => (sortOrder = 'oldest')}
-    >
-      Oldest
-    </button>
-  </div>
+  <label class="sr-only" for="post-search">Search posts</label>
+  <input
+    id="post-search"
+    type="search"
+    bind:value={searchTerm}
+    placeholder="Search posts..."
+    class="form-input w-full max-w-sm border-green-600 bg-green-800 text-green-100 placeholder:text-green-400 focus:border-green-400 focus:ring-green-400"
+  />
 </div>
 
 <div id="tags" class="tag-list max-w-7xl mx-auto mt-6">
