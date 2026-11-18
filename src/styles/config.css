@@ -13,6 +13,6 @@
   --asset-base: "https://flamegarnet89.github.io/Kim/static";
 
   /* Asset URLs - ready to use in url() */
-  --texture-gallery: "https://flamegarnet89.github.io/Kim/static/img/textures/galaxy.webp";
-  --texture-illusion: "https://flamegarnet89.github.io/Kim/static/img/textures/illusion.webp";
+  --texture-gallery: url("https://flamegarnet89.github.io/Kim/static/img/textures/galaxy.webp");
+  --texture-illusion: url("https://flamegarnet89.github.io/Kim/static/img/textures/illusion.webp");
 }
