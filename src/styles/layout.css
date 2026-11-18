@@ -20,9 +20,9 @@ body {
     border: 0.125rem solid var(--scrollbarBG);
   }
 }
-series-review-scroll {
+.series-review-scroll {
   scrollbar-width: thin;
-  scrollbar-color: color-mix(in srgb, var(--color-green-500) 55%, transparent) transparent;
+  scrollbar-color: color-mix(in srgb, var(--color-green-600) 55%, transparent) transparent;
 }
 .series-review-scroll::-webkit-scrollbar {
   height: 6px;
@@ -31,7 +31,7 @@ series-review-scroll {
   background: transparent;
 }
 .series-review-scroll::-webkit-scrollbar-thumb {
-  @apply rounded-full bg-green-500/50;
+  @apply rounded-full bg-green-600/50;
 }
 .series-review-scroll::-webkit-scrollbar-thumb:hover {
   @apply bg-green-500/80;
