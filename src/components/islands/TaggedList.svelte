@@ -228,7 +228,10 @@
   >
     {#each visiblePosts as post (post.link)}
       {#if post.kind === 'review'}
-        <ReviewCard post={post.reviewPost} layout="wide" />
+        <ReviewCard
+          post={{ ...post.reviewPost, tags: ['book-review'] }}
+          layout="wide"
+        />
       {:else}
       <div class="fancy_card horizontal mx-auto w-full" data-tagged-card>
         <div class="card_translator">
