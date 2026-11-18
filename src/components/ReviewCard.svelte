@@ -178,7 +178,7 @@
       href={post.link}
     >
       <div class="card_layer">
-        article class={`review-summary ${layout === 'all-posts' ? '' : `review-${post.review}`}`}>
+        <article class={`review-summary ${layout === 'all-posts' ? '' : `review-${post.review}`}`}>
           <div class="bg2">
             <div class="bg-inner flex flex-col {layout === 'wide' ? 'md:flex-row' : ''} w-full bg-green-700">
             {#if onToggleBookmark}
@@ -231,11 +231,14 @@
                     bind:this={imgEl}
                     loading="lazy"
                     class="block flex-none bg-cover mx-auto {layout === 'all-posts' ? 'w-full h-full object-cover' : ''} {wideRoundedClass}"
-                    style={layout === 'all-posts' ? 'width:100%;height:100%;object-fit:cover;aspect-ratio:auto' : undefined}
+                    style={layout === 'all-posts'
+                      ? `width:100%;height:100%;object-fit:cover;aspect-ratio:auto;visibility:${coverReady ? 'visible' : 'hidden'}`
+                      : !coverReady
+                        ? 'visibility:hidden'
+                        : undefined}
                     {sizes}
                     srcset={post.cover?.srcset}
                     src={post.img}
-                    style:visibility={coverReady ? undefined : 'hidden'}
                     onload={() => {
                       if (imgEl && selectedCoverMatches(imgEl)) coverReady = true;
                     }}
