@@ -26,6 +26,13 @@
   let tagActivations = $state<Record<string, boolean>>({});
   let searchTerm = $state('');
   let sortOrder = $state<'recent' | 'oldest'>('recent');
+  let selectedYear = $state('');
+
+  const availableYears = $derived(
+    [...new Set(posts.map((post) => new Date(post.date).getFullYear()))]
+      .filter(Number.isFinite)
+      .sort((a, b) => b - a),
+  );
 
   const allTags = $derived(
     Array.from(new Set(posts.flatMap((p) => p.tags))).sort(),
@@ -56,6 +63,13 @@
     const words = searchTerm.toLowerCase().trim().split(/\s+/).filter(Boolean);
     return posts
       .filter((post) => {
+        if (
+          selectedYear &&
+          new Date(post.date).getFullYear() !== Number(selectedYear)
+        ) {
+          return false;
+        }
+
         for (const [tag, active] of Object.entries(tagActivations)) {
           if (active === true && !post.tags.includes(tag)) return false;
           if (active === false && post.tags.includes(tag)) return false;
@@ -98,6 +112,18 @@
     placeholder="Search posts..."
     class="form-input w-full max-w-sm"
   />
+
+  <label class="sr-only" for="post-year">Filter posts by year</label>
+  <select
+    id="post-year"
+    bind:value={selectedYear}
+    class="rounded-md bg-green-700 px-4 py-2 text-green-100"
+  >
+    <option value="">All years</option>
+    {#each availableYears as year (year)}
+      <option value={String(year)}>{year}</option>
+    {/each}
+  </select>
 
   <div role="group" aria-label="Sort posts" class="inline-flex overflow-hidden rounded-md">
     <button
