@@ -14,6 +14,7 @@
     post: Post;
     layout: 'wide' | 'cover' | 'tier';
     tagColorClasses?: Record<string, string>;
+    displayTagLabels?: Record<string, string>;
     isBookmarked?: boolean;
     onToggleBookmark?: (slug: string) => void;
   };
@@ -22,6 +23,7 @@
     post,
     layout,
     tagColorClasses = {},
+    displayTagLabels = {},
     isBookmarked = false,
     onToggleBookmark,
   }: Props = $props();
