@@ -189,7 +189,9 @@ const reviewMarkdown =
                 <p class={`larger rating-${r}`}>
                   {ratingText.includes(':') ? (
                     <>
-                      {ratingText.slice(0, ratingText.indexOf(':') + 1)}
+                      <div className="text-center">
+                        {ratingText.slice(0, ratingText.indexOf(':') + 1)}
+                      </div>
                       <br />
                       {ratingText.slice(ratingText.indexOf(':') + 1).trim()}
                     </>
