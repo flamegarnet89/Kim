@@ -258,6 +258,15 @@
                    which is real HTML weight across ~160 reviews. -->
               {#if layout === 'wide' || layout === 'all-posts'}
                 <div class="flex flex-col justify-between p-4 text-center side-card-content">
+                  {#if layout === 'all-posts'}
+                    <ul class="review-card-tags mb-3 flex flex-wrap text-sm font-medium justify-center">
+                      {#each post.tags as tag (tag)}
+                        <li class="m-1 inline-flex text-center py-1 px-3 rounded-full tag-{tag}">
+                          {displayTagLabels[tag] ?? tag}
+                        </li>
+                      {/each}
+                    </ul>
+                  {/if}
                   <div class="rating">
                     <p class="small rating-{post.review}">
                       <span class="leader">{post.name}</span>
