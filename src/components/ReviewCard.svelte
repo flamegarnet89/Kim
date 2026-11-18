@@ -270,6 +270,11 @@
               {#if layout === 'wide' || layout === 'all-posts'}
                 <div class="flex flex-col justify-between p-4 {layout === 'all-posts' ? 'text-left' : 'text-center'} side-card-content">
                   {#if layout === 'all-posts'}
+                    {#if post.readOn}
+                      <p class="text-sm text-green-300">
+                        Read on {formatDate(post.readOn)}
+                      </p>
+                    {/if}
                     <div class="mb-3">
                       <ul class="review-card-tags flex flex-wrap text-sm font-medium justify-start">
                         {#each post.tags as tag (tag)}
@@ -289,7 +294,7 @@
                   </div>
                   {#if layout === 'all-posts'}
                     <p class="text-sm text-green-300 mb-2">
-                      {formatDate(post.date)}
+                      Posted {formatDate(post.date)}
                     </p>
                   {/if}
                   <p class="text-lg text-green-300 {layout === 'all-posts' ? '' : 'px-3'}">{post.sentence}</p>
