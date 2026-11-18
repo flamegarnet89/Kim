@@ -8,7 +8,11 @@
    *   - true      → "include" filter; card must have the tag.
    *   - false     → "exclude" filter; card must NOT have the tag.
    */
+  import ReviewCard from '../ReviewCard.svelte';
+  import type { Post } from '../../lib/types';
+
   export interface TaggedPost {
+    kind: 'blog';
     name: string;
     link: string;
     weight: number;
@@ -21,6 +25,19 @@
   }
 
   type Props = { posts: TaggedPost[]; base: string };
+  export interface TaggedReview {
+    kind: 'review';
+    name: string;
+    link: string;
+    date: string;
+    tags: string[];
+    description: string;
+    reviewPost: Post;
+  }
+
+  export type TaggedEntry = TaggedPost | TaggedReview;
+
+  type Props = { posts: TaggedEntry[]; base: string };
   let { posts, base }: Props = $props();
 
   let tagActivations = $state<Record<string, boolean>>({});
@@ -213,6 +230,9 @@
     class="container mx-auto mt-20 grid gap-12 grid-cols-vertical-cards"
   >
     {#each visiblePosts as post (post.link)}
+      {#if post.kind === 'review'}
+        <ReviewCard post={post.reviewPost} layout="wide" />
+      {:else}
       <div class="fancy_card horizontal mx-auto w-full" data-tagged-card>
         <div class="card_translator">
           <a class="card_rotator small_rot card_layer block" href={prefixBase(post.link)} aria-label={post.name}>
@@ -256,6 +276,7 @@
           </a>
         </div>
       </div>
+      {/if}
     {/each}
   </div>
 </div>
