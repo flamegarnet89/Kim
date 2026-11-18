@@ -7,8 +7,19 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TaggedList from '../../components/islands/TaggedList.svelte';
-import type { TaggedPost } from '../../components/islands/TaggedList.svelte';
-import { resolveCover } from '../../lib/covers';
+import type { TaggedEntry, TaggedPost } from '../../components/islands/TaggedList.svelte';
+import { resolveCover, resolveReviewCover } from '../../lib/covers';
+import type { Post, ReviewTier } from '../../lib/types';
+import {
+  BOOK_TAG,
+  DEFAULT_FORMAT_TAG,
+  DEFAULT_PROTAGONIST_TAG,
+  DEFAULT_STATUS_TAG,
+  FORMAT_TAGS,
+  LINK_TAG_MAP,
+  PROTAGONIST_TAGS,
+  STATUS_TAGS,
+} from '../../lib/review-tags';
 import { SITE_BASE, withBase } from '../../config';
 
 const BASE = SITE_BASE.replace(/\/$/, '');
@@ -25,6 +36,7 @@ const posts: TaggedPost[] = await Promise.all(
     const large = await resolveCover(entry, 704, 396);
     return {
       name: entry.data.short_title ?? entry.data.title,
+      kind: 'blog',
       link: withBase(`/blogs/${entry.id}/`),
       weight: 0,
       date: entry.data.date.toISOString(),
@@ -32,6 +44,56 @@ const posts: TaggedPost[] = await Promise.all(
       description: entry.data.description ?? '',
       img: small.src,
       img_larger: large.src,
+    };
+  }),
+);
+
+const reviewEntries = await getCollection('reviews');
+const reviewPosts: TaggedEntry[] = await Promise.all(
+  reviewEntries.map(async (entry) => {
+    const cover = await resolveReviewCover(entry);
+    const reviewPath = withBase(`/reviews/${entry.id}/`);
+    const tags = new Set([...entry.data.tags].map((tag) => tag.toLowerCase()));
+
+    for (const [name] of Object.entries(entry.data.links)) {
+      const sourceTag = LINK_TAG_MAP[name];
+      if (sourceTag) tags.add(sourceTag);
+    }
+    if (!tags.has(BOOK_TAG)) tags.add(BOOK_TAG);
+    if (!FORMAT_TAGS.some((tag) => tags.has(tag))) tags.add(DEFAULT_FORMAT_TAG);
+    if (!PROTAGONIST_TAGS.some((tag) => tags.has(tag))) tags.add(DEFAULT_PROTAGONIST_TAG);
+    if (!tags.has(String(entry.data.date.getFullYear()))) {
+      tags.add(String(entry.data.date.getFullYear()));
+    }
+    if (!STATUS_TAGS.some((tag) => tags.has(tag))) tags.add(DEFAULT_STATUS_TAG);
+
+    const reviewPost: Post = {
+      name: entry.data.short_title ?? entry.data.name,
+      link: reviewPath,
+      abslink: new URL(reviewPath, Astro.site!).toString(),
+      author: entry.data.auth,
+      review: entry.data.review as ReviewTier,
+      weight: entry.data.weight,
+      date: entry.data.date.toISOString(),
+      tags: [...tags],
+      serieswordcount: entry.data.serieswordcount,
+      links: Object.entries(entry.data.links).map(([name, link]) => ({ name, link })),
+      sentence: entry.data.sentence,
+      description: entry.data.description,
+      search_term: `${entry.data.auth} ${entry.data.name} ${entry.data.search_terms ?? ''}`.toLowerCase(),
+      img: cover.src,
+      cover: { srcset: cover.srcset },
+      video: entry.data.video,
+    };
+
+    return {
+      kind: 'review',
+      name: reviewPost.name,
+      link: reviewPath,
+      date: reviewPost.date,
+      tags: reviewPost.tags,
+      description: reviewPost.description,
+      reviewPost,
     };
   }),
 );
@@ -47,6 +109,6 @@ const posts: TaggedPost[] = await Promise.all(
     </div>
 
     <div id="toggle-input" class="max-w-7xl mx-auto"></div>
-    <TaggedList client:load posts={posts} base={SITE_BASE} />
+    <TaggedList client:load posts={[...posts, ...reviewPosts]} base={SITE_BASE} />
   </div>
 </BaseLayout>
