@@ -276,7 +276,7 @@
                       </p>
                     {/if}
                     <div class="mb-3">
-                      <ul class="review-card-tags flex flex-wrap text-sm font-medium justify-start">
+                      <ul class="review-card-tags flex flex-wrap text-sm font-medium justify-center">
                         {#each post.tags as tag (tag)}
                           <li class="m-1 inline-flex text-center py-1 px-3 rounded-full tag-{tag}">
                             {displayTagLabels[tag] ?? tag}
