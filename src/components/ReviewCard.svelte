@@ -295,7 +295,7 @@
                             {tag}
                           </li>
                         {/each}
-                        {#if post.serieswordcount != null}
+                        {#if layout !== 'all-posts' && post.serieswordcount != null}
                           <li class="square-review-tag tag-wordcount rounded m-1 inline-flex text-center py-1 px-3">
                             {formatSeriesWordCount(post.serieswordcount)} words
                           </li>
