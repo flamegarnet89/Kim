@@ -24,6 +24,8 @@
   let { posts, base }: Props = $props();
 
   let tagActivations = $state<Record<string, boolean>>({});
+  let searchTerm = $state('');
+  let sortOrder = $state<'recent' | 'oldest'>('recent');
 
   const allTags = $derived(
     Array.from(new Set(posts.flatMap((p) => p.tags))).sort(),
@@ -51,13 +53,26 @@
   }
 
   const visiblePosts = $derived.by(() => {
-    return posts.filter((post) => {
-      for (const [tag, active] of Object.entries(tagActivations)) {
-        if (active === true && !post.tags.includes(tag)) return false;
-        if (active === false && post.tags.includes(tag)) return false;
-      }
-      return true;
-    });
+    const words = searchTerm.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    return posts
+      .filter((post) => {
+        for (const [tag, active] of Object.entries(tagActivations)) {
+          if (active === true && !post.tags.includes(tag)) return false;
+          if (active === false && post.tags.includes(tag)) return false;
+        }
+
+        const searchableText = [
+          post.name,
+          post.description,
+          ...post.tags,
+        ].join(' ').toLowerCase();
+        return words.every((word) => searchableText.includes(word));
+      })
+      .sort((a, b) =>
+        sortOrder === 'recent'
+          ? b.date.localeCompare(a.date)
+          : a.date.localeCompare(b.date),
+      );
   });
 
   function prefixBase(link: string): string {
@@ -73,6 +88,44 @@
     }).format(new Date(date));
   }
 </script>
+
+<div class="mx-auto mt-6 flex max-w-7xl flex-wrap items-center justify-center gap-3 px-4">
+  <label class="sr-only" for="post-search">Search posts</label>
+  <input
+    id="post-search"
+    type="search"
+    bind:value={searchTerm}
+    placeholder="Search posts..."
+    class="form-input w-full max-w-sm"
+  />
+
+  <div role="group" aria-label="Sort posts" class="inline-flex overflow-hidden rounded-md">
+    <button
+      type="button"
+      aria-pressed={sortOrder === 'recent'}
+      class={`px-4 py-2 ${
+        sortOrder === 'recent'
+          ? 'bg-green-500 text-green-50'
+          : 'bg-green-700 text-green-400 hover:bg-green-500 hover:text-green-50'
+      }`}
+      onclick={() => (sortOrder = 'recent')}
+    >
+      Recent
+    </button>
+    <button
+      type="button"
+      aria-pressed={sortOrder === 'oldest'}
+      class={`px-4 py-2 ${
+        sortOrder === 'oldest'
+          ? 'bg-green-500 text-green-50'
+          : 'bg-green-700 text-green-400 hover:bg-green-500 hover:text-green-50'
+      }`}
+      onclick={() => (sortOrder = 'oldest')}
+    >
+      Oldest
+    </button>
+  </div>
+</div>
 
 <div id="tags" class="tag-list max-w-7xl mx-auto mt-6">
   {#each allTags as tag (tag)}
