@@ -1384,6 +1384,7 @@
         <div
           class="tier-grid grow grid content-start gap-1 px-1
                  grid-cols-3 sm:grid-cols-cover-cards-tier"
+					class:tier-grid--centered={group.posts.length <= 4}
         >
           {@render cards(group.posts)}
         </div>
