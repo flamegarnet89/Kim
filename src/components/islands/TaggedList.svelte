@@ -102,6 +102,7 @@
           post.name,
           post.description,
           ...post.tags,
+          ...(post.kind === 'review' ? post.reviewPost.tags : []),
           post.date,
           readableDate,
         ].join(' ').toLowerCase();
