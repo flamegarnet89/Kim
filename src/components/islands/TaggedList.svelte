@@ -231,6 +231,7 @@
         <ReviewCard
           post={{ ...post.reviewPost, tags: ['book-review'] }}
           layout="wide"
+          displayTagLabels={{ 'book-review': 'book review' }}
         />
       {:else}
       <div class="fancy_card horizontal mx-auto w-full" data-tagged-card>
