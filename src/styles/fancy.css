@@ -39,9 +39,14 @@ svg.ico {
 }
 
 @media (min-width: 1024px) {
-  .tier-grid--centered {
-    grid-template-columns: repeat(auto-fit, minmax(0, 150px));
-    justify-content: center;
+  .tier-row--compact {
+    width: fit-content;
+    max-width: 100%;
+    margin-inline: auto;
+  }
+  .tier-row--compact .tier-grid {
+    flex: none;
+    grid-template-columns: repeat(auto-fit, 150px);
   }
 }
 
