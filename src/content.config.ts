@@ -14,6 +14,7 @@ const reviews = defineCollection({
       description: z.string(),
       sentence: z.string(),
       date: z.coerce.date(),
+      read_on: z.coerce.date().optional(),
       auth: z.string(),
       categories: z.array(z.string()).default(['reviews']),
       review: REVIEW_TIER,
