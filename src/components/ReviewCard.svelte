@@ -274,7 +274,6 @@
                   </div>
                   <p class="text-lg text-green-300 px-3">{post.sentence}</p>
                   <div>
-                    <div class="mb-3">
                     {#if layout === 'wide'}
                     <div class="mb-3">
                       <ul class="review-card-tags flex flex-wrap text-sm sm:text-xs font-medium -m-1 justify-center">
