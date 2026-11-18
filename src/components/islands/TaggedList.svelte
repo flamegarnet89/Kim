@@ -34,12 +34,10 @@
     description: string;
     reviewPost: Post;
   }
-
   export type TaggedEntry = TaggedPost | TaggedReview;
 
   type Props = { posts: TaggedEntry[]; base: string };
   let { posts, base }: Props = $props();
-
   let tagActivations = $state<Record<string, boolean>>({});
   let searchTerm = $state('');
   let sortOrder = $state<'recent' | 'oldest'>('recent');
