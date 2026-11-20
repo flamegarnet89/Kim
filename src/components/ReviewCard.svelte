@@ -352,6 +352,12 @@
 </div>
 
 <style>
+  .all-posts-description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
   /* The parent .fancy_card rule applies transform-style: preserve-3d to ALL
      descendants, which causes 3D-rotated overlay layers inside card_rotator
      to occlude the bookmark button during hover.  Opting the button out of
