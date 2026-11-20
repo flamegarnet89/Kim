@@ -293,7 +293,7 @@
                     </p>
                   </div>
                   {#if layout === 'all-posts'}
-                    <p class="text-sm text-green-300 mb-2">
+                    <p class="all-posts-dates text-sm text-green-300">
                       {formatDate(post.date)}
                     </p>
                   {/if}
