@@ -217,7 +217,7 @@
                 </button>
                 {/if}
               <figure
-                class="block flex-none bg-cover {layout === 'wide' ? '' : 'w-full'}"
+                class="block flex-none bg-cover {layout === 'wide' ? '' : 'w-full'} {layout === 'all-posts' ? 'mb-4' : ''}"
                 style={layout === 'all-posts'
                   ? 'width:100%;max-width:none;aspect-ratio:16/9;overflow:hidden;margin:0'
                   : undefined}
