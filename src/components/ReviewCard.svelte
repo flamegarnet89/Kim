@@ -294,7 +294,7 @@
                   </div>
                   {#if layout === 'all-posts'}
                     <p class="text-sm text-green-300 mb-2">
-                      Posted {formatDate(post.date)}
+                      {formatDate(post.date)}
                     </p>
                   {/if}
                   <p class="text-lg text-green-300 {layout === 'all-posts' ? 'all-posts-description' : 'px-3'}">{post.sentence}</p>
