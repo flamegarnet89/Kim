@@ -251,7 +251,7 @@
         <div class="card_translator">
           <a class="card_rotator small_rot card_layer block" href={prefixBase(post.link)} aria-label={post.name}>
             <div class="card_layer">
-              <article class="flex flex-col h-full bg-green-800">
+              <article class="flex flex-col h-full bg-green-700">
                 <header class="mb-4">
                   <figure class="relative h-0 pb-9/16 overflow-hidden">
                     <picture>
