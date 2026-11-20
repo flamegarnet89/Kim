@@ -285,7 +285,7 @@
                       </ul>
                     </div>
                   {/if}
-                  <div class="rating">
+                  <div class="rating mb-2">
                     <p class="small rating-{post.review}">
                       <span class="leader">
                         {layout === 'all-posts' ? post.name : post.name}
