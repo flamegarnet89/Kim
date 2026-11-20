@@ -977,7 +977,11 @@
         }`}
         onclick={() => (sortOrder = sortOrder === 'recent' ? 'oldest' : 'recent')}
       >
-        {sortOrder === 'oldest' ? 'Oldest ↑' : 'Recent ↓'}
+        {sortOrder === 'oldest'
+          ? 'Oldest ↑'
+          : sortOrder === 'recent'
+            ? 'Recent ↓'
+            : 'Recent'}
       </button>
       <button
         type="button"
