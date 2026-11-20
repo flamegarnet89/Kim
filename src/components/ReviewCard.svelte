@@ -268,7 +268,7 @@
                    previously hid it with CSS but rendered it for every card,
                    which is real HTML weight across ~160 reviews. -->
               {#if layout === 'wide' || layout === 'all-posts'}
-                <div class="flex flex-col justify-between {layout === 'all-posts' ? 'all-posts-review-content text-left min-h-[13.25rem] px-4 pt-0 pb-4' : 'p-4 text-center'} side-card-content">
+                <div class="flex flex-col justify-between {layout === 'all-posts' ? 'all-posts-review-content text-left min-h-[13.25rem] px-4 pb-4' : 'p-4 text-center'} side-card-content">
                   {#if layout === 'all-posts'}
                     {#if post.readOn}
                       <p class="text-sm text-green-300">
