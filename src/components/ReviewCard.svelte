@@ -355,7 +355,7 @@
   .all-posts-description {
     display: -webkit-box;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 2;
     overflow: hidden;
   }
   /* The parent .fancy_card rule applies transform-style: preserve-3d to ALL
