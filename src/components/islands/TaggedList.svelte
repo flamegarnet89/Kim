@@ -288,6 +288,7 @@
 </div>
 
 <div id="all-card-wrapper">
+  {#if viewMode === 'list'}
   <div class="container mx-auto mt-20 max-w-4xl space-y-8 px-4" aria-label="All posts">
       {#each visiblePostsByYear as group (group.year)}
         <section aria-labelledby="year-{group.year}">
