@@ -116,6 +116,22 @@
       );
   });
 
+  const visiblePostsByYear = $derived.by(() => {
+    const groups = new Map<string, TaggedEntry[]>();
+
+    for (const post of visiblePosts) {
+      const date = new Date(post.date);
+      const year = Number.isNaN(date.getTime())
+        ? 'Unknown year'
+        : String(date.getFullYear());
+      const group = groups.get(year) ?? [];
+      group.push(post);
+      groups.set(year, group);
+    }
+
+    return [...groups].map(([year, yearPosts]) => ({ year, posts: yearPosts }));
+  });
+
   function prefixBase(link: string): string {
     if (link.startsWith(base)) return link;
     return base + link;
@@ -262,19 +278,27 @@
 </div>
 
 <div id="all-card-wrapper">
-  {#if viewMode === 'list'}
-    <ul class="container mx-auto mt-20 max-w-4xl space-y-3 px-4" aria-label="All posts">
-      {#each visiblePosts as post (post.link)}
-        <li>
-          <a
-            class="text-green-300 underline decoration-green-600 underline-offset-4 hover:text-green-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-400"
-            href={prefixBase(post.link)}
-          >
-            {post.name}
-          </a>
-        </li>
+  <div class="container mx-auto mt-20 max-w-4xl space-y-8 px-4" aria-label="All posts">
+      {#each visiblePostsByYear as group (group.year)}
+        <section aria-labelledby="year-{group.year}">
+          <h2 id="year-{group.year}" class="mb-3 text-xl font-semibold text-green-100">
+            {group.year}
+          </h2>
+          <ul class="space-y-3">
+            {#each group.posts as post (post.link)}
+              <li>
+                <a
+                  class="text-green-300 underline decoration-green-600 underline-offset-4 hover:text-green-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-400"
+                  href={prefixBase(post.link)}
+                >
+                  {#if post.kind === 'review'}Book Review: {/if}{post.name}
+                </a>
+              </li>
+            {/each}
+          </ul>
+        </section>
       {/each}
-    </ul>
+    </div>
   {:else}
     <div
       id="card-wrapper"
