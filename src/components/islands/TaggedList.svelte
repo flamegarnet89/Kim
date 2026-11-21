@@ -39,6 +39,7 @@
   let { posts, base }: Props = $props();
   let tagActivations = $state<Record<string, boolean>>({});
   let searchTerm = $state('');
+  let viewMode = $state<'cards' | 'list'>('cards');
   let sortOrder = $state<'recent' | 'oldest'>('recent');
   let selectedYear = $state('');
   let yearDropdownOpen = $state(false);
@@ -130,6 +131,32 @@
 </script>
 
 <div class="mx-auto mt-6 flex max-w-7xl flex-wrap items-center justify-center gap-3 px-4">
+ <div role="group" aria-label="Post layout" class="inline-flex overflow-hidden rounded-md">
+    <button
+      type="button"
+      aria-pressed={viewMode === 'cards'}
+     class={`px-4 py-2 ${
+        viewMode === 'cards'
+          ? 'bg-green-500 text-green-50'
+          : 'bg-green-700 text-green-400 hover:bg-green-500 hover:text-green-50'
+      }`}
+      onclick={() => (viewMode = 'cards')}
+    >
+      Cards
+    </button>
+    <button
+      type="button"
+      aria-pressed={viewMode === 'list'}
+      class={`px-4 py-2 ${
+        viewMode === 'list'
+          ? 'bg-green-500 text-green-50'
+          : 'bg-green-700 text-green-400 hover:bg-green-500 hover:text-green-50'
+      }`}
+      onclick={() => (viewMode = 'list')}
+    >
+      List
+    </button>
+  </div>
   <div role="group" aria-label="Sort posts" class="inline-flex overflow-hidden rounded-md">
     <button
       type="button"
@@ -235,62 +262,77 @@
 </div>
 
 <div id="all-card-wrapper">
-  <div
-    id="card-wrapper"
-    class="container mx-auto mt-20 grid gap-12 grid-cols-vertical-cards"
-  >
-    {#each visiblePosts as post (post.link)}
-      {#if post.kind === 'review'}
-        <ReviewCard
-          post={{ ...post.reviewPost, tags: ['book-review'] }}
-          layout="all-posts"
-          displayTagLabels={{ 'book-review': 'book review' }}
-        />
-      {:else}
-      <div class="fancy_card horizontal mx-auto w-full" data-tagged-card>
-        <div class="card_translator">
-          <a class="card_rotator small_rot card_layer block" href={prefixBase(post.link)} aria-label={post.name}>
-            <div class="card_layer">
-              <article class="flex flex-col h-full bg-green-700">
-                <header class="mb-4">
-                  <figure class="relative h-0 pb-9/16 overflow-hidden">
-                    <picture>
-                      <source
-                        srcset="{post.img} 352w, {post.img_larger} 704w"
-                        type="image/webp"
-                      />
-                      <img
-                        width="352"
-                        height="198"
-                        class="absolute inset-0 w-full h-full object-cover"
-                        src={post.img}
-                        alt={post.name}
-                      />
-                    </picture>
-                  </figure>
-                </header>
-                <div class="px-4 pb-4 flex flex-col flex-grow min-h-[13.25rem]">
-                  <div class="mb-3">
-                    <ul class="flex flex-wrap font-medium -m-1 justify-center">
-                      {#each post.tags as tag (tag)}
-                        <li class="m-1 inline-flex text-center py-1 px-3 rounded-full tag-{tag}">
-                          {tag}
-                        </li>
-                      {/each}
-                    </ul>
-                  </div>
-                  <h4 class="mb-2">{post.name}</h4>
-                  <p class="text-sm text-green-300 mb-2">{formatDate(post.date)}</p>
-                  <p class="text-lg text-green-300 flex-grow">{post.description}</p>
-                </div>
-              </article>
-            </div>
-            <div class="card_layer card_effect card_overlay_C"></div>
-            <div class="card_layer card_effect card_glare"></div>
+  {#if viewMode === 'list'}
+    <ul class="container mx-auto mt-20 max-w-4xl space-y-3 px-4" aria-label="All posts">
+      {#each visiblePosts as post (post.link)}
+        <li>
+          <a
+            class="text-green-300 underline decoration-green-600 underline-offset-4 hover:text-green-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-400"
+            href={prefixBase(post.link)}
+          >
+            {post.name}
           </a>
-        </div>
-      </div>
-      {/if}
-    {/each}
-  </div>
+        </li>
+      {/each}
+    </ul>
+  {:else}
+    <div
+      id="card-wrapper"
+      class="container mx-auto mt-20 grid gap-12 grid-cols-vertical-cards"
+    >
+      {#each visiblePosts as post (post.link)}
+        {#if post.kind === 'review'}
+          <ReviewCard
+            post={{ ...post.reviewPost, tags: ['book-review'] }}
+            layout="all-posts"
+            displayTagLabels={{ 'book-review': 'book review' }}
+          />
+        {:else}
+          <div class="fancy_card horizontal mx-auto w-full" data-tagged-card>
+            <div class="card_translator">
+              <a class="card_rotator small_rot card_layer block" href={prefixBase(post.link)} aria-label={post.name}>
+                <div class="card_layer">
+                  <article class="flex flex-col h-full bg-green-700">
+                    <header class="mb-4">
+                      <figure class="relative h-0 pb-9/16 overflow-hidden">
+                        <picture>
+                          <source
+                            srcset="{post.img} 352w, {post.img_larger} 704w"
+                            type="image/webp"
+                          />
+                          <img
+                            width="352"
+                            height="198"
+                            class="absolute inset-0 w-full h-full object-cover"
+                            src={post.img}
+                            alt={post.name}
+                          />
+                        </picture>
+                      </figure>
+                    </header>
+                    <div class="px-4 pb-4 flex flex-col flex-grow min-h-[13.25rem]">
+                      <div class="mb-3">
+                        <ul class="flex flex-wrap font-medium -m-1 justify-center">
+                          {#each post.tags as tag (tag)}
+                            <li class="m-1 inline-flex text-center py-1 px-3 rounded-full tag-{tag}">
+                              {tag}
+                            </li>
+                          {/each}
+                        </ul>
+                      </div>
+                      <h4 class="mb-2">{post.name}</h4>
+                      <p class="text-sm text-green-300 mb-2">{formatDate(post.date)}</p>
+                      <p class="text-lg text-green-300 flex-grow">{post.description}</p>
+                    </div>
+                  </article>
+                </div>
+                <div class="card_layer card_effect card_overlay_C"></div>
+                <div class="card_layer card_effect card_glare"></div>
+              </a>
+            </div>
+          </div>
+        {/if}
+      {/each}
+    </div>
+  {/if}
 </div>
