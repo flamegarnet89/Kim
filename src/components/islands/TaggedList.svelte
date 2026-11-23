@@ -160,18 +160,6 @@
  <div role="group" aria-label="Post layout" class="inline-flex overflow-hidden rounded-md">
     <button
       type="button"
-      aria-pressed={viewMode === 'cards'}
-      class={`px-4 py-2 ${
-        viewMode === 'cards'
-          ? 'bg-green-500 text-green-50'
-          : 'bg-green-700 text-green-400 hover:bg-green-500 hover:text-green-50'
-      }`}
-      onclick={() => (viewMode = 'cards')}
-    >
-      Cards
-    </button>
-    <button
-      type="button"
       aria-pressed={viewMode === 'list'}
       class={`px-4 py-2 ${
         viewMode === 'list'
@@ -182,6 +170,18 @@
     >
       List
     </button>
+    <button
+      type="button"
+      aria-pressed={viewMode === 'cards'}
+      class={`px-4 py-2 ${
+        viewMode === 'cards'
+          ? 'bg-green-500 text-green-50'
+          : 'bg-green-700 text-green-400 hover:bg-green-500 hover:text-green-50'
+      }`}
+      onclick={() => (viewMode = 'cards')}
+    >
+      Cards
+    </button>    
   </div>
   <div role="group" aria-label="Sort posts" class="inline-flex overflow-hidden rounded-md">
     <button
