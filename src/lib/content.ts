@@ -88,7 +88,10 @@ export function getSimilarReviews(
   all: import('astro:content').CollectionEntry<'reviews'>[],
   n = 4,
   tagOverlapBonus = 20,
-): import('astro:content').CollectionEntry<'reviews'>[] {
+): {
+  entry: import('astro:content').CollectionEntry<'reviews'>;
+  sharedTags: string[];
+}[] {
   const currentTags = new Set(current.data.tags);
 
   const pool = all
@@ -102,9 +105,12 @@ export function getSimilarReviews(
       return true;
     })
     .flatMap((e) => {
-      const shared = e.data.tags.filter((t) => currentTags.has(t)).length;
-      if (shared === 0) return [];
-      return [{ item: e, weight: reviewSamplingWeight(e.data.weight) + tagOverlapBonus * shared }];
+      const sharedTags = [...new Set(e.data.tags.filter((t) => currentTags.has(t)))];
+      if (sharedTags.length === 0) return [];
+      return [{
+        item: { entry: e, sharedTags },
+        weight: reviewSamplingWeight(e.data.weight) + tagOverlapBonus * sharedTags.length,
+      }];
     })
     .sort((a, b) => b.weight - a.weight)
     .slice(0, 12);
