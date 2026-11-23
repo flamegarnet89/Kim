@@ -299,11 +299,11 @@
             {#each group.posts as post (post.link)}
               <li>
                 <a
-                  class="text-green-300 underline decoration-green-600 underline-offset-4 hover:text-green-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-400"
+                  class="group text-green-300 underline decoration-green-600 underline-offset-4 hover:text-green-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-400"
                   href={prefixBase(post.link)}
                 >
                   {#if post.kind === 'review'}{'Book Review: '}{/if}{post.name}
-                  <span class="text-sm text-green-400">
+                  <span class="text-sm text-green-400 group-hover:text-green-100">
                     {' — '}{formatDate(post.date)}
                   </span>
                 </a>
