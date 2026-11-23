@@ -5,6 +5,7 @@
  * different orderings.
  */
 import { getCollection } from 'astro:content';
+import { BOOK_TAGS, STATUS_TAGS } from './review-tags';
 
 export const getRecentBlogs = async (n = 6) =>
   (await getCollection('blogs')).
@@ -71,7 +72,8 @@ function weightedSample<T>(pool: { item: T; weight: number }[], k: number): T[] 
 }
 
 /**
- * Return up to `n` reviews that share at least one tag with `current`.
+ * Return up to `n` reviews that share at least one eligible tag with `current`.
+ * Book/series, status, year, and wordcount tags are excluded from matching.
  * Each candidate's sampling weight is:
  *
  *   weight = reviewSamplingWeight(frontmatterWeight) + TAG_OVERLAP_BONUS * sharedTagCount
@@ -80,8 +82,8 @@ function weightedSample<T>(pool: { item: T; weight: number }[], k: number): T[] 
  * probability of being drawn. The base `reviewSamplingWeight` breaks ties
  * between candidates with identical overlap counts.
  *
- * The current review is always excluded. Reviews with zero shared tags are
- * excluded entirely.
+ * The current review and reviews in the same series are excluded. Reviews
+ * with zero shared eligible tags are excluded entirely.
  */
 export function getSimilarReviews(
   current: import('astro:content').CollectionEntry<'reviews'>,
@@ -92,7 +94,10 @@ export function getSimilarReviews(
   entry: import('astro:content').CollectionEntry<'reviews'>;
   sharedTags: string[];
 }[] {
-  const currentTags = new Set(current.data.tags);
+  const ignoredTags = new Set([...BOOK_TAGS, ...STATUS_TAGS, 'wordcount']);
+  const isMatchableTag = (tag: string) =>
+    !ignoredTags.has(tag) && !/^\d{4}$/.test(tag);
+  const currentTags = new Set(current.data.tags.filter(isMatchableTag));
 
   const pool = all
     .filter((e) => {
@@ -105,7 +110,9 @@ export function getSimilarReviews(
       return true;
     })
     .flatMap((e) => {
-      const sharedTags = [...new Set(e.data.tags.filter((t) => currentTags.has(t)))];
+      const sharedTags = [
+        ...new Set(e.data.tags.filter((tag) => isMatchableTag(tag) && currentTags.has(tag))),
+      ];
       if (sharedTags.length === 0) return [];
       return [{
         item: { entry: e, sharedTags },
