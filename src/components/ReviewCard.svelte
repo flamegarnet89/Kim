@@ -301,7 +301,7 @@
                   <div>
                     {#if layout === 'wide'}
                     <div class="mb-3">
-                      <ul class="review-card-tags flex flex-wrap text-lg sm:text-xs font-medium -m-1 justify-center">
+                      <ul class="review-card-tags wide-card-tags flex flex-wrap font-medium -m-1 justify-center">
                         {#each sortReviewTags(
                           post.tags.filter(
                             (tag) =>
