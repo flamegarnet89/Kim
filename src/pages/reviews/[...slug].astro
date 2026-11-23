@@ -317,10 +317,20 @@ const reviewMarkdown =
           {similarReviews.map((similar) => (
             <div class="flex flex-col gap-2">
               <ReviewCoverCard entry={similar.entry} />
-              <p class="text-center text-sm text-green-200">
-                {similar.sharedTags.length} shared {similar.sharedTags.length === 1 ? 'tag' : 'tags'}:
-                {' '}{similar.sharedTags.join(', ')}
-              </p>
+              <div>
+                <p class="mb-2 text-center text-sm text-green-200">
+                  {similar.sharedTags.length} shared {similar.sharedTags.length === 1 ? 'tag' : 'tags'}:
+                </p>
+                <ul class="flex flex-wrap justify-center gap-2 text-xs font-medium">
+                  {similar.sharedTags.map((tag) => (
+                    <li class={`inline-flex rounded-full ${tagColorClasses[tag] ?? ''} tag-${tag}`}>
+                      <a class="review-tag-link no-under" href={filterUrlForTag(tag)}>
+                        {tag === 'royal-road' ? 'royal road' : tag}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           ))}
         </div>
