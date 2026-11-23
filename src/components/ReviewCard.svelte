@@ -311,7 +311,7 @@
                           )
                         ) as tag (tag)}
                           <li
-                            class="m-1 inline-flex text-center py-1 px-3 {tagShapeClass(tag)} {tagColorClasses[tag] ?? ''} tag-{tag}"
+                            class="m-1 inline-flex text-center py-0.5 px-3 {tagShapeClass(tag)} {tagColorClasses[tag] ?? ''} tag-{tag}"
                           >
                             {displayTagLabels[tag] ?? (tag === 'royal-road' ? 'royal road' : tag)}
                           </li>
@@ -325,13 +325,13 @@
                           )
                         ) as tag (tag)}
                           <li
-                            class="square-review-tag m-1 inline-flex text-center py-1 px-3 {tagShapeClass(tag)} {tagColorClasses[tag] ?? ''} tag-{tag}"
+                            class="square-review-tag m-1 inline-flex text-center py-0.5 px-3 {tagShapeClass(tag)} {tagColorClasses[tag] ?? ''} tag-{tag}"
                           >
                             {tag}
                           </li>
                         {/each}
                         {#if layout !== 'all-posts' && post.serieswordcount != null}
-                          <li class="square-review-tag tag-wordcount rounded m-1 inline-flex text-center py-1 px-3">
+                          <li class="square-review-tag tag-wordcount rounded m-1 inline-flex text-center py-0.5 px-3">
                             {formatSeriesWordCount(post.serieswordcount)} words
                           </li>
                         {/if}
