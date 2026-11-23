@@ -945,7 +945,7 @@
           onclick={() => (layout = opt as Layout)}
         />
         <span class="px-4 py-2 text-lg sm:text-base {rounded} {isActive ? 'bg-green-500 text-green-50' : 'bg-green-700 text-green-400 hover:bg-green-500 hover:text-green-50'}"
-          >{opt === 'tier' ? 'Tier List' : opt[0].toUpperCase() + opt.slice(1)}</span
+          >{opt === 'tier' ? 'Tier List' : opt === 'wide' ? 'Card' : opt[0].toUpperCase() + opt.slice(1)}</span
         >
       </label>
     {/each}
