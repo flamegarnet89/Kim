@@ -149,6 +149,13 @@
 
   function formatDate(date: string): string {
     return new Intl.DateTimeFormat('en', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    }).format(new Date(date));
+  }
+  function formatListDate(date: string): string {
+    return new Intl.DateTimeFormat('en', {
       month: 'long',
       day: 'numeric',
     }).format(new Date(date));
