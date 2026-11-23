@@ -92,7 +92,15 @@ export function getSimilarReviews(
   const currentTags = new Set(current.data.tags);
 
   const pool = all
-    .filter((e) => e.id !== current.id)
+    .filter((e) => {
+      if (e.id === current.id) return false;
+
+      const currentSeries = current.data.series_name;
+      if (currentSeries) {
+        return e.data.series_name !== currentSeries;
+      }
+      return true;
+    })
     .flatMap((e) => {
       const shared = e.data.tags.filter((t) => currentTags.has(t)).length;
       if (shared === 0) return [];
