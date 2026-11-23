@@ -474,7 +474,7 @@
 }
 @media (orientation: landscape) and (max-height: 500px) {
   .review-summary ul.review-card-tags.wide-card-tags li {
-    @apply text-lg;
+    @apply text-base;
   }
 }
 .review-card-tags .review-tag-link {
