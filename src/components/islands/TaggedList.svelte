@@ -304,6 +304,9 @@
                 >
                   {#if post.kind === 'review'}{'Book Review: '}{/if}{post.name}
                 </a>
+                <span class="text-sm text-green-400">
+                  {' — '}{formatDate(post.date)}
+                </span>
               </li>
             {/each}
           </ul>
