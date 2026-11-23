@@ -472,6 +472,11 @@
     @apply text-xs;
   }
 }
+@media (orientation: landscape) and (max-height: 500px) {
+  .review-summary ul.review-card-tags.wide-card-tags li {
+    @apply text-lg;
+  }
+}
 .review-card-tags .review-tag-link {
   @apply block py-1 px-2.5 text-lg text-inherit no-underline;
   @variant sm {
