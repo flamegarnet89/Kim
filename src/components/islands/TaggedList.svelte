@@ -303,10 +303,10 @@
                   href={prefixBase(post.link)}
                 >
                   {#if post.kind === 'review'}{'Book Review: '}{/if}{post.name}
+                  <span class="text-sm text-green-400">
+                    {' — '}{formatDate(post.date)}
+                  </span>
                 </a>
-                <span class="text-sm text-green-400">
-                  {' — '}{formatDate(post.date)}
-                </span>
               </li>
             {/each}
           </ul>
