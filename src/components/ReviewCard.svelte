@@ -297,7 +297,7 @@
                       {formatDate(post.date)}
                     </p>
                   {/if}
-                  <p class="text-lg text-green-300 {layout === 'all-posts' ? 'all-posts-description' : 'px-3'}">{post.sentence}</p>
+                  <p class="text-green-300 {layout === 'wide' ? 'px-3 text-xl sm:text-lg' : 'text-lg'} {layout === 'all-posts' ? 'all-posts-description' : ''}">{post.sentence}</p>
                   <div>
                     {#if layout === 'wide'}
                     <div class="mb-3">
