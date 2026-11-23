@@ -464,6 +464,14 @@
 .review-summary ul.review-card-tags li {
   @apply text-sm;
 }
+.review-summary ul.review-card-tags.wide-card-tags li {
+  @apply text-lg;
+}
+@variant sm {
+  .review-summary ul.review-card-tags.wide-card-tags li {
+    @apply text-xs;
+  }
+}
 .review-card-tags .review-tag-link {
   @apply block py-1 px-2.5 text-lg text-inherit no-underline;
   @variant sm {
