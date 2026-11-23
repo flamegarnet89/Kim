@@ -312,10 +312,16 @@ const reviewMarkdown =
     {similarReviews.length > 0 && (
       <div class="mt-20">
         <h2 class="text-2xl font-bold text-center mb-8">Books with similar tags:</h2>
-        <p class="text-center">(It's literally just tag overlap, nothing that works very well.)</p>
+        <p class="text-center">(It's literally just tag overlap, nothing that works very well.) Selected because they share tags with this review: </p>
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl mx-auto">
           {similarReviews.map((similar) => (
-            <ReviewCoverCard entry={similar} />
+            <div class="flex flex-col gap-2">
+              <ReviewCoverCard entry={similar.entry} />
+              <p class="text-center text-sm text-green-200">
+                {similar.sharedTags.length} shared {similar.sharedTags.length === 1 ? 'tag' : 'tags'}:
+                {' '}{similar.sharedTags.join(', ')}
+              </p>
+            </div>
           ))}
         </div>
       </div>
