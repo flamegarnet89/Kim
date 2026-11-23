@@ -39,7 +39,7 @@
   let { posts, base }: Props = $props();
   let tagActivations = $state<Record<string, boolean>>({});
   let searchTerm = $state('');
-  let viewMode = $state<'cards' | 'list'>('cards');
+  let viewMode = $state<'cards' | 'list'>('list');
   let sortOrder = $state<'recent' | 'oldest'>('recent');
   let selectedYear = $state('');
   let yearDropdownOpen = $state(false);
