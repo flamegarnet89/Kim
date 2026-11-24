@@ -43,7 +43,6 @@
   let sortOrder = $state<'recent' | 'oldest'>('recent');
   let selectedYear = $state('');
   let yearDropdownOpen = $state(false);
-  const currentYear = String(new Date().getFullYear());
 
   const availableYears = $derived(
     [...new Set(posts.map((post) => new Date(post.date).getFullYear()))]
@@ -228,25 +227,19 @@
       }}
     >
       All
-    </button>
-    <button
-      type="button"
-      class="year-filter-current {selectedYear === currentYear ? 'is-active' : ''}"
-      aria-pressed={selectedYear === currentYear}
-      onclick={() => {
-        selectedYear = currentYear;
-        yearDropdownOpen = false;
-      }}
-    >
-      {currentYear}
-    </button>
+    </button>    
     <div class="year-dropdown">
       <button
         type="button"
         class="year-dropdown-trigger {selectedYear ? 'is-active' : ''}"
         aria-haspopup="listbox"
         aria-expanded={yearDropdownOpen}
-        onclick={() => (yearDropdownOpen = !yearDropdownOpen)}
+        onclick={() => {
+        if (!yearDropdownOpen && !selectedYear) {
+          selectedYear = String(new Date().getFullYear());
+        }
+        yearDropdownOpen = !yearDropdownOpen;
+      }}
       >
         {selectedYear || 'Year'}
         <svg
