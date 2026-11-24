@@ -918,11 +918,11 @@
   <p>
     Total of {totalReviews} reviews with <em>my</em> rankings based on what I usually enjoy
     reading, slice-of-life with some progression. I have a ton of filters based on what I usually look for to limit the many options. 
-	If you want to chat about these books or have any recoomendations based on what I have reviewed, I'm <a
+	If you want to chat about these books or have any recommendations based on what I have reviewed, I'm <a
       href="https://www.reddit.com/user/Confident_Mulberry29/"
       class="font-bold"
       style="color: #ff8b60"
-    >Confident_Mulberry29</a> on reddit, talk to meee :D
+    >Confident_Mulberry29</a> on reddit, talk to meee :D Just uhh, any authors of books I complain about, it's all just my personal feelings to the books and not you as a person! 
   </p>
 </div>
 
