@@ -43,6 +43,7 @@
   let sortOrder = $state<'recent' | 'oldest'>('recent');
   let selectedYear = $state('');
   let yearDropdownOpen = $state(false);
+  const currentYear = String(new Date().getFullYear());
 
   const availableYears = $derived(
     [...new Set(posts.map((post) => new Date(post.date).getFullYear()))]
@@ -236,12 +237,12 @@
         aria-expanded={yearDropdownOpen}
         onclick={() => {
         if (!yearDropdownOpen && !selectedYear) {
-          selectedYear = String(new Date().getFullYear());
+          selectedYear = currentYear;
         }
         yearDropdownOpen = !yearDropdownOpen;
       }}
       >
-        {selectedYear || 'Year'}
+        {selectedYear || currentYear}
         <svg
           class="h-4 w-4"
           xmlns="http://www.w3.org/2000/svg"
