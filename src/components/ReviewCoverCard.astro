@@ -27,7 +27,7 @@ const { entry } = Astro.props;
 const r = entry.data.review;
 const title = entry.data.short_title ?? entry.data.name;
 ---
-<div class="fancy_card horizontal mx-auto w-full" data-review-card>
+<div class="fancy_card horizontal mx-auto w-full max-w-full" data-review-card>
   <div class="card_translator">
     <a
       class="card_rotator small_rot card_layer block"
