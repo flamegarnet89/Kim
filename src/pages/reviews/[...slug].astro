@@ -316,7 +316,7 @@ const reviewMarkdown =
           {similarReviews.map((similar) => (
             <div class="flex w-full flex-col items-center gap-1">
               <ReviewCoverCard entry={similar.entry} />
-              <ul class="review-card-tags mx-0! mt-2! mb-0! w-full max-w-none! list-none! flex flex-wrap justify-center gap-2 p-0! text-xs! font-medium">
+              <ul class="review-card-tags mx-0! mt-3! mb-0! w-full max-w-none! list-none! flex flex-wrap justify-center gap-2 p-0! text-xs! font-medium">
                 {similar.sharedTags.map((tag) => (
                   <li class={`inline-flex text-center rounded-full ${tagColorClasses[tag] ?? ''} tag-${tag}`}>
                     <a class="review-tag-link no-under" href={filterUrlForTag(tag)}>
