@@ -438,6 +438,7 @@
   const selectedYear = $derived(
     Object.entries(yearActivations).find(([, active]) => active)?.[0] ?? ''
   );
+	const currentYear = String(new Date().getFullYear());
   let searchTerm = $state(initial.searchTerm);
   let readingList = $state<SvelteSet<string>>(initial.readingList);
   let showReadingList = $state(initial.showReadingList);
@@ -1097,9 +1098,14 @@
         class={`year-dropdown-trigger inline-flex items-center gap-2 ${selectedYear ? 'is-active' : ''}`}
          aria-haspopup="listbox"
         aria-expanded={yearDropdownOpen}
-        onclick={() => (yearDropdownOpen = !yearDropdownOpen)}
+        onclick={() => {
+          if (!yearDropdownOpen && !selectedYear) {
+            yearActivations = { [currentYear]: true };
+          }
+          yearDropdownOpen = !yearDropdownOpen;
+        }}
       >
-        {selectedYear || 'Years'}
+        {selectedYear || currentYear}
         <svg
           class="h-4 w-4"
           xmlns="http://www.w3.org/2000/svg"
