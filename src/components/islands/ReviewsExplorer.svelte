@@ -922,7 +922,10 @@
       href="https://www.reddit.com/user/Confident_Mulberry29/"
       class="font-bold"
       style="color: #ff8b60"
-    >Confident_Mulberry29</a> on reddit, talk to meee :D Just uhh, any authors of books I complain about, it's all just my personal feelings to the books and not you as a person! 
+    >Confident_Mulberry29</a> on reddit, talk to meee :D Just uhh, any authors of books I complain about, 
+	it's all just my personal feelings to the books and not you as a person! 
+	<br />
+	So some disclaimers and my background and how it affects my preferences and what I find relatable and thus, how high I rate something.
   </p>
 </div>
 
