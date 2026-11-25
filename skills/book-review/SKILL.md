@@ -24,15 +24,41 @@ Create `content/reviews/<slug>/index.md` plus assets in the same folder.
 | `auth` | yes | Author as credited (pen names, spacing as on listings). |
 | `description` | yes | One line for the reviews list; can start from blurb + edit. |
 | `date` | yes | `YYYY-MM-DD` (today unless user specifies). |
-| `categories` | yes | Always `[reviews]`. |
+| `categories` | yes | Use the category convention for the relevant reviews; existing book reviews use `[book-reviews]`. |
 | `review` | yes | Tier letter (site uses `S`, `A`, `B`, `C`, `F`, `π`, etc.). **Default for new stubs: `C`.** User may change after writing. |
 | `weight` | yes | Numeric sort on tier list; use a temporary value (e.g. `50`) if final position is unknown. |
 | `sentence` | yes | One-line hook; often the publisher/tagline from Amazon—may match first line of blurb. |
-| `tags` | yes | Lowercase, hyphenated. Common: `in-progress`, `finished`, `litrpg`, `cultivation`, `isekai`, `slice-of-life`, `wholesome`, `sci-fi`, `cyberpunk`, `magic-school`, `female-lead`, `companion`, `kingdom-building`, `system-apocalypse`, `time-loops`, `crafting`, `hard-magic`, `lgbt`, `fanfic`, `parody`, `pf-adjacent`. Infer 2–6 from blurb + genre; user can edit. |
+| `tags` | yes | Lowercase, hyphenated. Common: `completed`, `ongoing`, `series`, `litrpg`, `cultivation`, `isekai`, `slice-of-life`, `wholesome`, `sci-fi`, `cyberpunk`, `magic-school`, `female-lead`, `male-lead`, `companion`, `kingdom-building`, `system-apocalypse`, `time-loops`, `crafting`, `hard-magic`, `lgbt`, `fanfic`, `parody`, `pf-adjacent`. Use `series` on the series-parent review; status tags are `completed` or `ongoing`. Infer relevant tags from the blurb + genre; user can edit. |
+| `series_name` | for series | Shared series name used to group books and find the parent review. Use the same value on each book in that series. |
+| `series_order` | for series | Positive integer for the book's order in the series. |
+| `serieswordcount` | optional | Positive integer for the total series word count. Commas in a quoted YAML value are accepted, e.g. `"4,000,000"`. |
+| `read_through` | optional | Free-text note describing how far the review covers, e.g. `Books 1–3`. |
+| `recommended_books` | optional | Up to four curated recommendations, each with a target review `slug` and a non-empty `comment`. See recommendation behavior below. |
 | `links` | when found | Keys under `links:` are indented **4 spaces** in this repo. Keys: `amazon` (Kindle/ebook URL—majority), `audible`, `royal_road`. Rare: `kindle` instead of `amazon`—prefer `amazon` for consistency. For **Amazon domain**: prefer **`amazon.com` (US)** over `amazon.com.au` or other regions when both list the same work; use a non-US storefront only if the US page is missing or clearly the wrong edition. Commented `# goodreads:` lines appear in some files—optional. |
 | `aliases` | recommended | e.g. `aliases: [/reviews/<slug>]` for short URLs. Add extras only if user asks. |
 | `short_title` | optional | Overrides list card `name` when `title` is long (see theme list layout). |
 | `search_terms` | optional | Extra keywords for discoverability (series titles, first book name, etc.). |
+
+### Series recommendations
+
+Use `recommended_books` to curate up to four recommendations and explain why each one is relevant:
+
+```yaml
+recommended_books:
+  - slug: another_book
+    comment: "I like how both books build their worlds around a close-knit community."
+  - slug: one_more_book
+    comment: "The protagonist's gradual progression has a similar feel."
+```
+
+- `slug` must be the target review's collection ID: the folder name under `content/reviews/`, not its title or `name`.
+- `comment` is displayed under that book's cover and shared-tag buttons.
+- For a series child, its own non-empty `recommended_books` list takes priority. If it has no recommendations, it inherits the list from the review with the same `series_name` that has the `series` tag.
+- Recommendations from the parent are inherited by child reviews; children do not need duplicate frontmatter.
+- The current review and reviews in the current series are omitted from the recommendations.
+- Automatic shared-tag suggestions fill any remaining slots, up to four total. They ignore book/series tags, status tags, year tags, and wordcount.
+- A curated recommendation can still display its comment if it has no eligible shared tags; the tag row will simply be empty.
+- Check that each slug exists and avoid duplicate slugs. The schema allows at most four entries.
 
 ### Body markdown
 
@@ -51,6 +77,8 @@ Create `content/reviews/<slug>/index.md` plus assets in the same folder.
 ### 1. Confirm target path
 
 - Propose `content/reviews/<slug>/` from title; adjust if the user prefers a different slug.
+- For a book in a series, use the same `series_name` as its siblings and set its `series_order`.
+- If creating the series parent, add the `series` tag. Put shared recommendations on that parent unless the user specifies otherwise.
 
 ### 2. Research links (web search)
 
@@ -77,8 +105,12 @@ If any source is missing (no RR, no audio, etc.), omit that key—do not invent 
 
 - Fill all required front matter fields.
 - Set `links` only with verified URLs.
+- Match the established category for the collection; book-review entries commonly use `categories: [book-reviews]`.
+- For a series, set `series_name` and `series_order`; mark the parent with the `series` tag.
+- Add `recommended_books` only when the user provides the target books and comments, or explicitly asks for recommendations. Prefer putting shared recommendations on the parent review. A child-specific list overrides the inherited parent list.
 - After front matter `---`, add optional one-line reading-status stub if the user wants it, then `## Blurb` and the verbatim product description.
 - **Always** add `## Thoughts` after the blurb and populate its `### Pros` and `### Cons` using the research workflow below. Preserve any review prose the user supplies.
+- Add `## Thoughts` after the blurb. Preserve user-written chapter notes and spoiler markup; for research-only notes, use the `### Pros` and `### Cons` format below.
 
 ### 5. Cover image
 
@@ -96,6 +128,9 @@ curl -fsSL -o "content/reviews/<slug>/cover.jpg" "<image-url>"
 ### 6. Validate
 
 - YAML indentation: spaces only; `links` child keys indented 4 spaces (matches existing reviews).
+- `recommended_books` uses a list of objects with `slug` and `comment`; keep it to four or fewer entries.
+- Verify recommendation slugs match existing review-folder IDs.
+- For series inheritance, verify child and parent `series_name` values match and that the parent has the `series` tag.
 - No broken front matter quotes in `title` strings.
 
 
@@ -125,6 +160,13 @@ links:
 aliases: [/reviews/<slug>]
 tags: [in-progress, litrpg]
 sentence: "Official tagline or first hook sentence."
+series_name: "Series Name"
++series_order: 1
++recommended_books:
+  - slug: another_book
+    comment: "Why this book is similar."
+  - slug: another_book 2
+    comment: "Why this book is also similar."
 ---
 
 ## Blurb
