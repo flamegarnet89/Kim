@@ -20,6 +20,12 @@ const reviews = defineCollection({
       review: REVIEW_TIER,
       weight: z.number(),
       tags: z.array(z.string()).default([]),
+      recommended_books: z.array(
+        z.object({
+          slug: z.string().trim().min(1),
+          comment: z.string().trim().min(1),
+        }),
+      ).max(4).optional(),
       serieswordcount: z.preprocess(
         (value) => {
           if (typeof value !== 'string') return value;
