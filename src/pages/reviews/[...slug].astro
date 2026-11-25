@@ -79,7 +79,47 @@ const ratingText = RATING_TEXT[r];
 
 const titleCase = (s: string) => s.replaceAll('_', ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 
-const similarReviews = getSimilarReviews(entry, allEntries, 4);
+const MAX_SIMILAR_REVIEWS = 4;
+const isSimilarMatchTag = (tag: string) =>
+  !BOOK_TAGS.includes(tag as (typeof BOOK_TAGS)[number]) &&
+  !STATUS_TAGS.includes(tag as (typeof STATUS_TAGS)[number]) &&
+  tag !== 'wordcount' &&
+  !/^\d{4}$/.test(tag);
+const currentSimilarTags = new Set(entry.data.tags.filter(isSimilarMatchTag));
+const seenRecommendationIds = new Set<string>();
+const curatedSimilarReviews = (entry.data.recommended_books ?? [])
+  .flatMap(({ slug, comment }) => {
+    const recommended = allEntries.find((review) => review.id === slug);
+    if (
+      !recommended ||
+      recommended.id === entry.id ||
+      seenRecommendationIds.has(recommended.id)
+    ) {
+      return [];
+    }
+    seenRecommendationIds.add(recommended.id);
+    return [{
+      entry: recommended,
+      comment,
+      sharedTags: [...new Set(
+        recommended.data.tags.filter(
+          (tag) => isSimilarMatchTag(tag) && currentSimilarTags.has(tag),
+        ),
+      )],
+    }];
+  })
+  .slice(0, MAX_SIMILAR_REVIEWS);
+const automaticSimilarReviews = getSimilarReviews(
+  entry,
+  allEntries,
+  MAX_SIMILAR_REVIEWS - curatedSimilarReviews.length,
+  20,
+  [...seenRecommendationIds],
+);
+const similarReviews = [
+  ...curatedSimilarReviews,
+  ...automaticSimilarReviews.map((similar) => ({ ...similar, comment: undefined })),
+];
 const hasBookTag = entry.data.tags.some((tag) => BOOK_TAGS.includes(tag as (typeof BOOK_TAGS)[number]));
 const hasStatusTag = entry.data.tags.some((tag) => STATUS_TAGS.includes(tag as (typeof STATUS_TAGS)[number]));
 const hasFormatTag = entry.data.tags.some((tag) => FORMAT_TAGS.includes(tag as (typeof FORMAT_TAGS)[number]));
@@ -311,7 +351,7 @@ const reviewMarkdown =
     </div>
     {similarReviews.length > 0 && (
       <div class="mt-20">
-        <h2 class="text-2xl font-bold text-center mb-8">Books with shared tags:</h2>
+        <h2 class="text-2xl font-bold text-center mb-8">Recommended books and books with shared tags:</h2>
         <div class="flex max-w-4xl flex-wrap justify-center gap-4 mx-auto">
           {similarReviews.map((similar) => (
             <div class="flex w-[calc(50%-0.5rem)] shrink-0 flex-col items-center text-center sm:w-[calc(25%-0.75rem)]">
@@ -325,6 +365,11 @@ const reviewMarkdown =
                   </li>
                 ))}
               </ul>
+              {similar.comment && (
+                <p class="mt-2! text-center text-sm text-green-200">
+                  {similar.comment}
+                </p>
+              )}
             </div>
           ))}
         </div>
