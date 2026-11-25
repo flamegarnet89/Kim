@@ -39,5 +39,4 @@ make prod      # clean build into `dist/`
 ## Operational playbooks
 
 - Drafting a new review — see `skills/book-review/`.
-- Refreshing the cover-artist database from r/ProgressionFantasy — see `skills/find-artists/`.
 - Editing review prose without sounding AI-generated — see `skills/humanizer/`.
