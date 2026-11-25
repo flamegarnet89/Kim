@@ -90,6 +90,7 @@ export function getSimilarReviews(
   all: import('astro:content').CollectionEntry<'reviews'>[],
   n = 4,
   tagOverlapBonus = 20,
+  excludeIds: readonly string[] = [],
 ): {
   entry: import('astro:content').CollectionEntry<'reviews'>;
   sharedTags: string[];
@@ -98,10 +99,11 @@ export function getSimilarReviews(
   const isMatchableTag = (tag: string) =>
     !ignoredTags.has(tag) && !/^\d{4}$/.test(tag);
   const currentTags = new Set(current.data.tags.filter(isMatchableTag));
+  const excludedIds = new Set([current.id, ...excludeIds]);
 
   const pool = all
     .filter((e) => {
-      if (e.id === current.id) return false;
+      if (excludedIds.has(e.id)) return false;
 
       const currentSeries = current.data.series_name;
       if (currentSeries) {
