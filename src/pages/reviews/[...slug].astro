@@ -13,6 +13,7 @@ import {
   FORMAT_TAGS,
   PROGRESSION_TAGS,
   PROTAGONIST_TAGS,
+  SERIES_TAG,
   SOURCE_TAGS,
   STATUS_TAGS,
   isSquareReviewTag,
@@ -86,13 +87,28 @@ const isSimilarMatchTag = (tag: string) =>
   tag !== 'wordcount' &&
   !/^\d{4}$/.test(tag);
 const currentSimilarTags = new Set(entry.data.tags.filter(isSimilarMatchTag));
+const sameSeriesReviews = entry.data.series_name
+  ? allEntries.filter(
+      (review) => review.data.series_name === entry.data.series_name,
+    )
+  : [];
+const recommendationParent = sameSeriesReviews.find((review) =>
+  review.data.tags.includes(SERIES_TAG),
+);
+const ownRecommendations = entry.data.recommended_books ?? [];
+const recommendations =
+  ownRecommendations.length > 0
+    ? ownRecommendations
+    : recommendationParent?.data.recommended_books ?? [];
 const seenRecommendationIds = new Set<string>();
-const curatedSimilarReviews = (entry.data.recommended_books ?? [])
+const curatedSimilarReviews = recommendations
   .flatMap(({ slug, comment }) => {
     const recommended = allEntries.find((review) => review.id === slug);
     if (
       !recommended ||
       recommended.id === entry.id ||
+      (entry.data.series_name &&
+        recommended.data.series_name === entry.data.series_name) ||
       seenRecommendationIds.has(recommended.id)
     ) {
       return [];
