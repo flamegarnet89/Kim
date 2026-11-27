@@ -313,6 +313,44 @@ const reviewMarkdown =
       </div>
     </div>
     <div class="max-w-xl2 mx-auto review-article"><Content /></div>
+    <script is:inline>
+      const article = document.querySelector('.review-article');
+      if (article) {
+        const headings = [...article.querySelectorAll('h2, h3, h4, h5, h6')];
+
+        if (headings.length > 0) {
+          const nav = document.createElement('nav');
+          nav.className = 'mx-auto mt-4 w-full max-w-[42rem]';
+          nav.setAttribute('aria-label', 'Review sections');
+
+          const list = document.createElement('ul');
+          list.className =
+            'm-0 flex w-full list-none gap-2 overflow-x-auto pb-2 p-0';
+
+          headings.forEach((heading, index) => {
+            if (!heading.id) heading.id = `review-section-${index + 1}`;
+
+            const item = document.createElement('li');
+            item.className = 'm-0 shrink-0 list-none p-0';
+
+            const link = document.createElement('a');
+            link.href = `#${heading.id}`;
+            link.textContent = heading.textContent.trim();
+            link.className =
+              'inline-flex whitespace-nowrap rounded-full bg-colour-800 px-3 py-1 text-sm text-green-300 underline shadow-none transition-colors hover:bg-green-500';
+
+            item.append(link);
+            list.append(item);
+          });
+
+          nav.append(list);
+          headings[0].before(nav);
+        }
+      }
+    </script>    
+    <div class="mt-20">
+      <p class="text-center"><a href={withBase('/reviews/')}>Return to review index.</a></p>
+    </div>
     {seriesReviews.length > 1 && (
       <div class="mx-auto mt-4 w-full max-w-[42rem]">
         <nav
@@ -360,9 +398,6 @@ const reviewMarkdown =
         </nav>
       </div>
     )}
-    <div class="mt-20">
-      <p class="text-center"><a href={withBase('/reviews/')}>Return to review index.</a></p>
-    </div>
     {similarReviews.length > 0 && (
       <div class="mt-20">
         <h2 class="text-2xl font-bold text-center mb-8">Recommended books with shared tags:</h2>
