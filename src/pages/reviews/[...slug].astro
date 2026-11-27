@@ -304,56 +304,7 @@ const reviewMarkdown =
             </div>
           </div>
         </div>
-      </article>
-      {seriesReviews.length > 1 && (
-        <div class="mx-auto mt-4 w-full max-w-[42rem]">
-          <nav
-            aria-label={`${entry.data.series_name} book reviews`}
-            class="series-review-paginator grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-x-3"
-          >
-            <div class="flex min-w-0 items-baseline justify-start">
-              {previousReview && (
-                <a
-                  href={withBase(`/reviews/${previousReview.id}/`)}
-                  rel="prev"
-                  class="inline-flex w-fit whitespace-nowrap bg-colour-800 rounded-md px-2 py-0.5 text-xl! sm:text-base! text-green-300! shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
-                >
-                  ← Prev
-                </a>
-              )}
-            </div>
-
-            <div class="series-review-scroll min-w-0 overflow-x-auto pb-1 [&::-webkit-scrollbar-thumb]:cursor-pointer">
-              <ul class="m-0 flex w-max min-w-full list-none items-baseline justify-start gap-0 p-0">
-                {seriesReviews.map((review) => (
-                  <li class="m-0 shrink-0 list-none p-0">
-                    <a
-                      href={withBase(`/reviews/${review.id}/`)}
-                      aria-current={review.id === entry.id ? 'page' : undefined}
-                      title={review.data.name}
-                      class="inline-flex w-fit whitespace-nowrap rounded-md px-1.5 py-0.5 text-xl! sm:text-base! text-green-300! underline shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
-                    >
-                      {review.data.short_title ?? review.data.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <div class="flex min-w-0 items-baseline justify-end">
-              {nextReview && (
-                <a
-                  href={withBase(`/reviews/${nextReview.id}/`)}
-                  rel="next"
-                  class="inline-flex w-fit whitespace-nowrap bg-colour-800 rounded-md px-2 py-0.5 text-xl! sm:text-base! text-green-300! shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
-                >
-                  Next →
-                </a>
-              )}
-            </div>
-          </nav>
-        </div>
-      )}
+      </article>      
       <div class="mt-8 text-left">
         <p class = "text-green-200!" >Read On:    {dateString}</p>
         {entry.data.read_through && (
@@ -362,12 +313,59 @@ const reviewMarkdown =
       </div>
     </div>
     <div class="max-w-xl2 mx-auto review-article"><Content /></div>
+    {seriesReviews.length > 1 && (
+      <div class="mx-auto mt-4 w-full max-w-[42rem]">
+        <nav
+          aria-label={`${entry.data.series_name} book reviews`}
+          class="series-review-paginator grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-x-3"
+        >
+          <div class="flex min-w-0 items-baseline justify-start">
+            {previousReview && (
+              <a
+                href={withBase(`/reviews/${previousReview.id}/`)}
+                rel="prev"
+                class="inline-flex w-fit whitespace-nowrap bg-colour-800 rounded-md px-2 py-0.5 text-xl! sm:text-base! text-green-300! shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
+              >
+                ← Prev
+              </a>
+            )}
+          </div>
+           <div class="series-review-scroll min-w-0 overflow-x-auto pb-1 [&::-webkit-scrollbar-thumb]:cursor-pointer">
+            <ul class="m-0 flex w-max min-w-full list-none items-baseline justify-start gap-0 p-0">
+              {seriesReviews.map((review) => (
+                <li class="m-0 shrink-0 list-none p-0">
+                  <a
+                    href={withBase(`/reviews/${review.id}/`)}
+                    aria-current={review.id === entry.id ? 'page' : undefined}
+                    title={review.data.name}
+                    class="inline-flex w-fit whitespace-nowrap rounded-md px-1.5 py-0.5 text-xl! sm:text-base! text-green-300! underline shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
+                  >
+                    {review.data.short_title ?? review.data.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="flex min-w-0 items-baseline justify-end">
+            {nextReview && (
+              <a
+                href={withBase(`/reviews/${nextReview.id}/`)}
+                rel="next"
+                class="inline-flex w-fit whitespace-nowrap bg-colour-800 rounded-md px-2 py-0.5 text-xl! sm:text-base! text-green-300! shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none"
+              >
+                Next →
+              </a>
+            )}
+        </div>
+        </nav>
+      </div>
+    )}
     <div class="mt-20">
       <p class="text-center"><a href={withBase('/reviews/')}>Return to review index.</a></p>
     </div>
     {similarReviews.length > 0 && (
       <div class="mt-20">
-        <h2 class="text-2xl font-bold text-center mb-8">Recommended books and books with shared tags:</h2>
+        <h2 class="text-2xl font-bold text-center mb-8">Recommended books with shared tags:</h2>
         <div class="flex max-w-4xl flex-wrap justify-center gap-4 mx-auto">
           {similarReviews.map((similar) => (
             <div class="flex w-[calc(50%-0.5rem)] shrink-0 flex-col items-center text-center sm:w-[calc(25%-0.75rem)]">
