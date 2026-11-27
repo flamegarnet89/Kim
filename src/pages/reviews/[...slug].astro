@@ -330,7 +330,7 @@ const reviewMarkdown =
 
           const list = document.createElement('ul');
           list.className =
-            'm-0 flex w-max min-w-full list-none items-baseline justify-start gap-2 p-0';
+            'm-0 inline-flex w-max list-none items-stretch gap-0 overflow-hidden rounded-md p-0';
 
           headings.forEach((heading, index) => {
             if (!heading.id) heading.id = `review-section-${index + 1}`;
@@ -341,8 +341,14 @@ const reviewMarkdown =
             const link = document.createElement('a');
             link.href = `#${heading.id}`;
             link.textContent = heading.textContent.trim();
+            const edgeClass =
+              index === 0
+                ? 'rounded-l-md'
+                : index === headings.length - 1
+                  ? 'rounded-r-md'
+                  : 'rounded-none';
             link.className =
-              'inline-flex w-fit whitespace-nowrap rounded-md px-1.5 py-0.5 text-xl! sm:text-lg! text-green-200! bg-green-700 shadow-none transition-colors hover:bg-green-500 hover:text-green-50! hover:shadow-none';
+              `inline-flex w-fit whitespace-nowrap ${edgeClass} px-4! py-2! text-lg! sm:text-xl! cursor-pointer no-under bg-green-700! text-green-400! shadow-none transition-colors hover:bg-green-500! hover:text-green-50! hover:shadow-none`;
 
             item.append(link);
             list.append(item);
