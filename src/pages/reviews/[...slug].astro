@@ -324,13 +324,9 @@ const reviewMarkdown =
             'mx-auto mt-4 w-full max-w-[42rem]';
           nav.setAttribute('aria-label', 'Review sections');
 
-          const scroll = document.createElement('div');
-          scroll.className =
-            'series-review-scroll min-w-0 overflow-x-auto pb-1 [&::-webkit-scrollbar-thumb]:cursor-pointer';
-
           const list = document.createElement('ul');
           list.className =
-            'm-0 flex w-max min-w-full list-none items-baseline justify-start gap-0 p-0';
+            'm-0 flex w-full flex-wrap list-none items-stretch gap-0 p-0';
 
           headings.forEach((heading, index) => {
             if (!heading.id) heading.id = `review-section-${index + 1}`;
@@ -354,8 +350,7 @@ const reviewMarkdown =
             list.append(item);
           });
 
-          scroll.append(list);
-          nav.append(scroll);
+          nav.append(list);
           headings[0].before(nav);
         }
       }
